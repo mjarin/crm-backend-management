@@ -1,0 +1,64 @@
+
+body {
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+    font-weight: 400!important;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.main-sidebar, .main-sidebar::before {
+    /* width: 300px!important; */
+}
+
+
+/* .scrollable{
+    width:1200px;
+    height:400px;
+    overflow:scroll;
+} */
+/* navbar Color  */
+.bg-custom{
+    background-color:#3C8DBC !important;
+    
+}
+.brand-link{
+    background-color:#3C8DBC !important;
+    height:57px!important; 
+}
+.cutom-hover>btn:hover {
+    background-color : #E7E7E7;
+  }
+
+
+/* User Logout css */
+#user-logout{
+   margin-top:19px!important; 
+   width:350px;
+}
+
+#user-logout-Li{
+    background-color:#3C8DBC !important;
+    height: 230px;
+}
+
+#user-logout-img{
+    height: 110px;
+    width:110px; 
+}
+
+/* remove border radious of all button */
+.border-radius-none{
+    border-radius: 0!important;
+}
+
+/* #manage-courier-table-parent-div{
+
+    position:relative!important;
+
+}
+#manage-courier-table{
+
+    position:absolute!important;
+    right:100%!important;
+
+} */
