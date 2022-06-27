@@ -94,6 +94,13 @@ Order Management
 </li>
 
 <li class="nav-item">
+  <a href="{{url('/in-stock-orders')}}" class="nav-link">
+  <i class="fa fa-circle-o nav-icon"></i>
+  <p>In Stock Orders</p>
+  </a>
+  </li>
+
+<li class="nav-item">
 <a href="{{url('/manage-orders')}}" class="nav-link">
 <i class="fa fa-circle-o nav-icon"></i>
 <p>Manage Order</p>
@@ -592,7 +599,7 @@ Category Banner
 
 <li class="nav-item text-secondary ml-3">QUANTITY REPORTS</li>
 <li class="nav-item">
-<a href="#" class="nav-link">
+<a href="{{url('current-stock')}}" class="nav-link">
 <i class="nav-icon fa fa-file"></i>
 <p>
 Current Stocks
@@ -600,10 +607,11 @@ Current Stocks
 </a>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link">
+  <a href="{{url('stock-alert')}}" class="nav-link">
   <i class="nav-icon fa fa-file"></i>
   <p>
-   Stock Alert
+    <span class="" id="position">Stock Alert</span>
+    <span class="badge badge-pill badge-danger stock-count">0</span>
   </p>
   </a>
   </li>
@@ -611,7 +619,7 @@ Current Stocks
 
 <li class="nav-item text-secondary ml-3">MANAGE</li>
 <li class="nav-item">
-<a href="#" class="nav-link">
+<a href="{{url('customer-data')}}" class="nav-link">
 <i class="nav-icon fa fa-file"></i>
 <p>
 Customer Data
@@ -621,7 +629,7 @@ Customer Data
 {{-- End of MANAGE --}}
 <li class="nav-item text-secondary ml-3">DELIVERY</li>
 <li class="nav-item">
-<a href="#" class="nav-link">
+<a href="{{url('delivery-man')}}" class="nav-link">
 <i class="nav-icon fa fa-file"></i>
 <p>
   Delivery Man
@@ -629,7 +637,7 @@ Customer Data
 </a>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link">
+  <a href="{{url('delivery-reports')}}" class="nav-link">
   <i class="nav-icon fa fa-file"></i>
   <p>
     Delivery Reports

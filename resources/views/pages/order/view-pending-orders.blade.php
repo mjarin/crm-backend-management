@@ -11,8 +11,8 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
-            <li class="breadcrumb-item">Order</li>
+            <a href="#">Home</a><span class="mr-2">><span></li>
+            <li class="breadcrumb-item">Order<span class="mr-2">><span></li>
             <li class="breadcrumb-item active">Pending Orders</li>
           </ol>
         </div>
@@ -24,9 +24,9 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        {{-- <div class="col-md-12"> --}}
+        {{-- <div class="col-md-12"> --}} 
           <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-white">
               <p class="mt-2" id="result">Total Number of Items Selected = <p>
             </div>
             <!-- /.card-header -->
@@ -36,21 +36,21 @@
             <thead>
             <tr>
             <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
-            <th style="width:10%">Date</th>
-            <th style="width:10%">Order Code</th>
-                 <th style="width:7%">Seller</th>
-                 <th style="width:8%">Customer</th>
-                 <th style="width:10%">Address</th>
-                 <th style="width:10%">Ordered Items</th>
-                 <th style="width:10%">Supplier</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:5%">Priority</th>
-                  <th style="width:7%">Circle Price</th>
-                 <th style="width:8%">Collected Price</th>
-                 <th style="width:8%">Delivery Man</th>
-                 <th style="width:7%">Delivery Date</th> 
-                 <th style="width:5%">Remarks</th>
-                 <th style="width:15%">Tools</th>
+            <th style="width:10%;">Date</th>
+            <th style="width:10%;">Order Code</th>
+                 <th style="width:7%;">Seller</th>
+                 <th style="width:8%;">Customer</th>
+                 <th style="width:10%;">Address</th>
+                 <th style="width:10%;">Ordered Items</th>
+                 <th style="width:10%;">Supplier</th>
+                 <th style="width:5%;">Status</th>
+                 <th style="width:5%;">Priority</th>
+                  <th style="width:7%;">Circle Price</th>
+                 <th style="width:8%;">Collected Price</th>
+                 <th style="width:8%;">Delivery Man</th>
+                 <th style="width:7%;">Delivery Date</th> 
+                 <th style="width:5%;">Remarks</th>
+                 <th style="width:15%;">Tools</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,20 +59,14 @@
                     <td><input name='checkme[]' id="order" type='checkbox' value='67371'></td>
                     <td>{{$order->date}}</td> 
                     <td>{{$order->code}}</td>
-                    <td>{{$order->seller_id}}</td> 
+                    <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->shipping_address}}</td> 
-                    <td>OrderItem</td>
-                    <td>Supplier</td>
-                    <td><span class="text-danger font-weight-bold">{{$order->delivery_status}}</span></td>
+                    <td>{{$order->address}}</td> 
+                    <td>{{$order->product_name}}</td>
+                    <td>{{$order->supplier_name}}</td> 
+                    <td>{{$order->delivery_status}}</td>
                     <td><span class="text-danger font-weight-bold">High</span></td> 
-                    {{-- <td></td> --}}
-                    <td>
-                      {{-- {{$order->orderDetails->circle_price}} --}}
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
+                    <td>{{$order->circle_price}}</td> 
                     <td>{{$order->collected_price}}</td> 
                     <td>{{$order->delivery_man}}</td>
                     <td>{{$order->delivery_date}}</td> 

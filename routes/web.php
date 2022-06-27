@@ -16,6 +16,11 @@ use App\Http\Controllers\ReturningOrdersController;
 use App\Http\Controllers\ManageCourierController;
 use App\Http\Controllers\NoStatusOrdersController;
 use App\Http\Controllers\MarketingController;
+use App\Http\Controllers\DeliveryManController;
+use App\Http\Controllers\DeliveryReportController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\InStockOrderController;
 use App\Http\Controllers\CourierWiseOrders\JananiController;
 use App\Http\Controllers\CourierWiseOrders\SundarbanController;
 use App\Http\Controllers\CourierWiseOrders\SAparibahanController;
@@ -68,6 +73,8 @@ Route::put('update-processing-order',[ProcessingOrdersController::class,'updateP
 Route::get('view-single-processing-order/{id}',[ProcessingOrdersController::class,'ViewSingleProcessingOrder'])->name('view.single.processing.orders');
 Route::get('/edit-processing-order-deatail/{id}',[ProcessingOrdersController::class,'editProcessingOrderDetails'])->name('edit.processing.order.deatils');
 Route::put('update-processing-order-details',[ProcessingOrdersController::class,'updateProcessingOrderDetails'])->name('update.processing.order.deatils');
+Route::get('processing-order-returned-edit/{id}',[ProcessingOrdersController::class,'editProcessingOrderReturned'])->name('edit.processing.order.returned'); 
+Route::put('update-processing-order-returned',[ProcessingOrdersController::class,'updateProcessingOrderReturned'])->name('update.processing.order.returned');
 
 
 // .............................................................................................................................
@@ -80,8 +87,8 @@ Route::get('edit-packaging-order-deatail/{id}',[ReadyForPackagingController::cla
 Route::put('update-packaging-order-details',[ReadyForPackagingController::class,'updatePackagingOrderDetails'])->name('update.packaging.order.deatils');
 Route::get('returned-packaging-order/{id}',[ReadyForPackagingController::class,'returnedPackagingOrder'])->name('returned.packaging.order');
 Route::put('update-packaging-order-returned',[ReadyForPackagingController::class,'updateReturnedPackagingOrder'])->name('update.returned.packaging.order');
-
-
+Route::get('edit-purchased-status/{id}',[ReadyForPackagingController::class,'editPurchasedStatus'])->name('edit.purchased.status');
+Route::put('update-packaging-order-purchase-status',[ReadyForPackagingController::class,'updatePurchasedStatus'])->name('update.purchased.status');
 
 
 // .............................................................................................................................
@@ -94,7 +101,8 @@ Route::get('edit-ready-to-deliver-order-details/{id}',[ReadyToDeliveredControlle
 Route::put('update-ready-to-deliver-order-details',[ReadyToDeliveredController::class,'updateReadyToDeliverOrderdetails'])->name('update.ready.to.deliver.order.details');
 Route::get('edit-returned-ready-to-deliver-order/{id}',[ReadyToDeliveredController::class,'editReturnedReadyToDeliver'])->name('edit.returned.ready.to.deliver');
 Route::put('update-ready-to-deliver-order-returned',[App\Http\Controllers\ReadyToDeliveredController::class,'updateReadyToDeliverReturnedOrder'])->name('update.ready.to.deliver.returned.order');
-// Route::get('purchased-ready-to-deliver-order/{id}',[ReadyToDeliveredController::class,'PurchasedReadyToDeliverOrder'])->name('purchased.ready.to.deliver');
+Route::get('append-id-to-rtd-update-status/{id}',[ReadyToDeliveredController::class,'appendId'])->name('append.id');
+Route::put('update-purchase-status-rtd',[ReadyToDeliveredController::class,'updatePurchasedStatusRtd'])->name('update.purchased.status.rtd');
  
 
 // .............................................................................................................................
@@ -107,6 +115,8 @@ Route::get('edit-on-hold-order-details/{id}',[OnHoldOrdersController::class,'edi
 Route::put('update-on-hold-order-details',[OnHoldOrdersController::class,'updateOnHoldOrderDetails'])->name('update.on.hold.order.details');
 Route::get('edit-returned-on-hold-order/{id}',[OnHoldOrdersController::class,'editOnHoldOrderReturned'])->name('edit.on.hold.order.returned');
 Route::put('update-on-hold-order-returned',[OnHoldOrdersController::class,'updateOnHoldOrderReturned'])->name('update.on.hold.order.returned');
+Route::get('ohder-purchase-status-edit/{id}',[OnHoldOrdersController::class,'editPurchaseStatusohder'])->name('edit.purchase.status.ohder');
+Route::put('ohder-update-purchase-status',[OnHoldOrdersController::class,'updateOHOPurchaseStatus'])->name('oho.update.purchase.status');
 
 // .............................................................................................................................
 //UnderReviewOrders Routes.....................................................................
@@ -117,8 +127,9 @@ Route::get('view-under-review-order-details/{id}',[UnderReviewOrdersController::
 Route::get('edit-under-review-order-details/{id}',[UnderReviewOrdersController::class,'editUnderReviewOrderDetails'])->name('edit.under.review.order.details');
 Route::put('update-under-review-order-details',[UnderReviewOrdersController::class,'UpdateUnderReviewOrderDetails'])->name('update.under.review.order.details');
 Route::get('edit-returned-under-review-order/{id}',[UnderReviewOrdersController::class,'editUnderReviewOrderReturn'])->name('edit.under.review.order.returned');
-Route::put('update-under-review-order-returned',[OnHoldOrdersController::class,'updateUnderReviewReturned'])->name('update.under.review.returned');
-
+Route::put('update-under-review-order-returned',[UnderReviewOrdersController::class,'updateUnderReviewReturned'])->name('update.under.review.returned');
+Route::get('underReviewOrder-purchase-status-edit/{id}',[UnderReviewOrdersController::class,'editPurchaseStatusURO'])->name('edit.purchase.status.uro');
+Route::put('underReviewOrder-update-purchase-status',[UnderReviewOrdersController::class,'UpdatePurchaseStatusURO'])->name('update.purchase.status.uro');
 
 // .............................................................................................................................
 //Delivered Orders Routes.....................................................................
@@ -134,20 +145,39 @@ Route::get('edit-in-transit-order-details/{id}',[InTransitOrdersController::clas
 Route::put('update-in-transit-order-details',[InTransitOrdersController::class,'updateInTransitOrderDetails'])->name('update.in.transit.order.details');
 Route::get('edit-in-transit-returned-order/{id}',[InTransitOrdersController::class,'editInTransitReturnedOrder'])->name('edit.in.transit.returned.order');
 Route::put('update-in-transit-order-returned',[InTransitOrdersController::class,'updateInTransitReturnedOrder'])->name('update.in.transit.returned.order');
+Route::get('intro-purchase-status-edit/{id}',[InTransitOrdersController::class,'editPurchaseStatusIntro'])->name('edit.purchase.status.intro');
+Route::put('intro-update-purchase-status',[InTransitOrdersController::class,'updatePurchaseStatusInTrO'])->name('update.purchase.status.intro');
+
+
+// In Stock Orders Routes...............................................
+Route::get('/in-stock-orders',[InStockOrderController::class,'inStockOrders'])->name('in.stock.orders');
+Route::get('edit-in-stock-orders/{id}',[InStockOrderController::class,'editStockOrder'])->name('edit.in.stock.order');
+Route::put('update-instock-order',[InStockOrderController::class,'updateInStockOrder'])->name('update.in.stock.orders');
+Route::get('view-in-stock-order-details/{id}',[InStockOrderController::class,'viewSingleInStockOrder'])->name('single.in.stock.order');
+Route::get('instock-order-details-edit/{id}',[InStockOrderController::class,'editInStockOrderDetails'])->name('deatail.edit');
+Route::put('update-instock-order-details',[InStockOrderController::class,'updateInStockOrderDetails'])->name('update.instock.order.deatail');
+
+Route::get('returned-in-stock-order-edit/{id}',[InStockOrderController::class,'editInStockOrderReturn'])->name('edit.in.stock.order.returned');
+Route::put('update-InStock-order-returned',[InStockOrderController::class,'updateInStockOrderReturned'])->name('update.in.stock.order.returned');
+Route::get('ups-edit/{id}',[InStockOrderController::class,'editPurchaseStatusIso'])->name('edit.purchase.status.iso');
+Route::put('iso-update-purchase-status',[InStockOrderController::class,'updatePurchaseStatusIso'])->name('update.purchase.status.iso');
 
 // Manage Order Routes...............................................
 Route::get('/manage-orders',[ManageOrderController::class,'ManageOrders'])->name('manage.orders');
-Route::put('step1-submit-order',[ManageOrderController::class,'submitOrderIdStep1'])->name('submit.order.id.1');
-Route::put('submit-order-id-step2',[ManageOrderController::class,'submitOrderIdStep2'])->name('submit.order.id.2');
+Route::get('step1-submit-order',[ManageOrderController::class,'submitOrderIdStep1'])->name('submit.order.id.1');
+Route::get('submit-order-id-step2',[ManageOrderController::class,'submitOrderIdStep2'])->name('submit.order.id.2');
 Route::get('edit-selected-order/{id}',[ManageOrderController::class,'editSelectedOrder'])->name('edit.selected.order');
 Route::put('update-selected-order',[ManageOrderController::class,'updateSelectedOrder'])->name('update.selected.order');
 Route::get('view-single-selected-order/{id}',[ManageOrderController::class,'viewSingleSelectedOrder'])->name('view.single.selected.order');
-Route::get('selected-order-details-edit/{id}',[ManageOrderController::class,'editSelectedOrderDetails'])->name('edit.selected.order.details');
+
+Route::get('so-details-edit/{id}',[ManageOrderController::class,'editSelectedOrderDetails'])->name('edit.selected.order.details');
+
 Route::put('update-selected-order-details',[ManageOrderController::class,'updateSelectedOrderDetails'])->name('update.selected.order.details');
 Route::get('edit-returned-selected-order/{id}',[ManageOrderController::class,'editSelectedOrderReturned'])->name('edit.selected.order.returned');
 Route::put('update-selected-returned-order',[ManageOrderController::class,'updateSelectedReturnedOrder'])->name('update.selected.returned.order');
-Route::get('edit-selected-order-purchase-status/{id}',[ManageOrderController::class,'editSelectedOrderPurchaseStatus'])->name('edit.selected.order.purchase.status');
-Route::put('update-purchase-status',[ManageOrderController::class,'updateSelectedOrderPurchaseStatus'])->name('update.selected.order.purchase.status');
+
+Route::get('sops-edit/{id}',[ManageOrderController::class,'editSelectedOrderPurchaseStatus'])->name('edit.selected.order.purchase.status');
+Route::put('update-purchase-status-manage-order',[ManageOrderController::class,'updateSelectedOrderPurchaseStatus'])->name('update.selected.order.purchase.status');
 Route::get('purchased-selected-order/{id}/{po_status}',[ManageOrderController::class,'updateSelectedOrderPurchased'])->name('update.selected.order.purchased');
 
 // In House Orders Routes.............................................................................................................................
@@ -155,10 +185,13 @@ Route::get('/in-house-orders',[InHouseOrdersController::class,'inHouseOrders'])-
 Route::get('edit-in-house-order/{id}',[InHouseOrdersController::class,'editInHouseOrder'])->name('edit.in.house.order');
 Route::put('update-in-house-order',[InHouseOrdersController::class,'updateInHouseOrder'])->name('update.in.house.order');
 Route::get('view-single-in-house-order/{id}',[InHouseOrdersController::class,'viewSingleInHouseOrder'])->name('view.single.in.house.order');
+
 Route::get('details-in-house-order-edit/{id}',[InHouseOrdersController::class,'editInHouseOrderDetails'])->name('edit.in.house.order.details');
+
 Route::get('returned-in-house-order-edit/{id}',[InHouseOrdersController::class,'editInHouseOrderReturned'])->name('edit.in.house.order.returned');
 Route::put('update-in-house-order-returned',[InHouseOrdersController::class,'updateInHouseOrderReturned'])->name('update.in.house.order.returned');
-
+Route::get('iho_purchase_status_edit/{id}',[InHouseOrdersController::class,'editPurchaseStatusIHO'])->name('edit.purchase.status.iho');
+Route::PUT('inho-update-purchase-status',[InHouseOrdersController::class,'updatePurchaseStatusIHO'])->name('update.purchase.status.iho');
 
 // .............................................................................................................................
 //Returning Orders Routes.....................................................................
@@ -182,9 +215,10 @@ Route::put('update-no-status-order-details',[NoStatusOrdersController::class,'up
 Route::get('edit-returned-no-status-order/{id}',[NoStatusOrdersController::class,'editNoStatusReturnedOrder'])->name('edit.no.status.order.returned');
 Route::put('update-returned-no-status-order',[NoStatusOrdersController::class,'updateNoStatusOrderReturned'])->name('update.no.status.order.returned');
 
-
 //Manage Couriers Routes.....................................................................
-Route::get('/manage-courier',[ManageOrderController::class,'manageCouriers'])->name('manage.couriers');
+Route::get('/manage-courier',[App\Http\Controllers\ManageCourierController::class,'manageCouriers'])->name('manage.couriers');
+Route::post('add-new-courier',[ManageCourierController::class,'addNewCouriers'])->name('add.new.courier');
+Route::get('delete-courier/{id}',[ManageCourierController::class,'deleteCourier'])->name('delete.courier');
 
 //CourierWiseOrdersTab's Routes.....................................................................
 
@@ -215,11 +249,33 @@ Route::put('update-sa-paribahan-order-details',[SAparibahanController::class,'up
 Route::get('sa-paribahan-returned-order-edit/{id}',[SAparibahanController::class,'editSAparibahanOrderReturned'])->name('edit.sa.paribahan.order.returned');
 Route::put('update-sa-paribahan-order-returned',[SAparibahanController::class,'updateSAparibahanReturnedOrder'])->name('update.sa.paribahan.returned.order');
 
-
+// Marketing....................................................................................................
 Route::get('/offers',[MarketingController::class,'Offers'])->name('offers');
 
+// Stock-Alert ..................................................
+Route::get('/stock-alert',[StockController::class,'stockAlert'])->name('stock.alert');
+Route::get('edit-product-stock/{id}',[StockController::class,'editStock'])->name('edit.stock');
+Route::put('update-product-stock',[StockController::class,'updateStock'])->name('update.stock');
+Route::get('count_low_product_stock',[StockController::class,'countLowStockProduct'])->name('count.low.stock.product');
+// Current Stock..........................................................................................................
+Route::get('current-stock',[StockController::class,'currentStock'])->name('current.stock');
 
 
+// Customer-Data..................................................................................................................
+Route::get('/customer-data',[CustomerController::class,'viewCustomersData'])->name('customer.data');
+
+// Delivery Man.....................................................................................................
+Route::get('delivery-man',[DeliveryManController::class,'deliveryManList'])->name('delivery.man.list');
+Route::post('add-delivery-man-details',[DeliveryManController::class,'addDeliveryMan'])->name('add.delivery.man');
+Route::get('delivery-man-edit/{id}',[DeliveryManController::class,'editDeliveryMan'])->name('edit.delivery.man');
+Route::put('update-delivery-man-details',[App\Http\Controllers\DeliveryManController::class,'updateDeliveryManInfo'])->name('update.delivery.man');
+Route::get('delete-delivery-man/{id}',[DeliveryManController::class,'deleteDeliveryMan'])->name('delete.delivery.man');
+
+// Delivery Reports.....................................................................................................
+
+Route::get('/delivery-reports',[DeliveryReportController::class,'deliveryReports'])->name('delivery.reports');
+Route::get('/search-data-by-date',[DeliveryReportController::class,'submitDate'])->name('submit.date');
+Route::get('/search-step-two',[DeliveryReportController::class,'submitSecondTime'])->name('submit.date.second');
 
 
 

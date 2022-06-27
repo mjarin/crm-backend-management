@@ -20,14 +20,12 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
+    <section class="">
             <div class="row">
-                {{-- <div class="col-md-12"> --}}
-                <div class="card">
-                    <div class="card-header">
-                        <p class="mt-2" id="result">Total Number of Items Selected =
-                        <p>
+                <div class="card ml-4" style="width:84vw!important;">
+                <div class="col-md-12"> 
+                    <div class="card-header bg-white">
+                     <button id="export" class="btn btn-info">Export Reports As Excel</button>
                     </div>
                     <!-- /.card-header -->
 
@@ -52,9 +50,9 @@
                                     <tr>
                                         <td>{{ $order->date }}</td>
                                         <td>{{ $order->id }}</td>
-                                        <td>Source N Supply</td>
+                                        <td>{{ $order->shop_name}}</td>
                                         <td>{{ $order->customer_name }}</td>
-                                        <td>{{ $order->shipping_address }}</td>
+                                        <td>{{ $order->address }}</td>
                                         <td>{{ $order->delivery_status }}</td>
                                         <td><b class="text-danger">Not Received</b></td>
                                         <td>{{ $order->collected_price }}</td>
@@ -64,6 +62,7 @@
                                 @endforeach{{-- Toools tr End --}}
                     </div>
                 </div>
+            </div> <!-- /.col -->
             </div>
             </tbody>
             </table>
@@ -73,10 +72,7 @@
         <!-- /.card -->
         {{-- </div> --}}
         <!-- /.col -->
-        </div>
-        <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+        </div> <!-- /.row -->
     </section>
     <!-- /.content -->
 @endsection

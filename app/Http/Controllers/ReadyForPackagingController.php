@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Courier;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReadyForPackagingController extends Controller
 {
@@ -13,7 +14,31 @@ class ReadyForPackagingController extends Controller
 public function readyForPackaging() {
 
     $couriers = Courier::all();
-    $packaging_orders=Order::where('delivery_status','ready for packaging')->get();
+    // $packaging_orders=Order::where('delivery_status','ready for packaging')->get();
+
+    $packaging_orders=DB::table('orders as order')
+    ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+    ->join('products as product', 'order_details.product_id', '=', 'product.id')
+    ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
+    ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+    ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
+    ->where('order.delivery_status', '=', 'ready for packaging')
+    ->get(['order.id',
+    'order.date',
+    'order.code',
+    'order.customer_name',
+    'order.delivery_status',
+    'order.collected_price',
+    'order.delivery_man',
+    'order.delivery_date',
+    'order.remarks',
+    'order_details.circle_price',
+    'shop.shop_name',
+    'address.address',
+    'product.product_name',
+    'supplier.supplier_name'
+    ]);
+
     return view('pages.order.ready-for-packaging',compact('packaging_orders','couriers'));
 
    }
@@ -51,21 +76,35 @@ public function readyForPackaging() {
 
    public function viewSinglePackagingOrder($id){
 
-    $packaging_order=Order::where('delivery_status','=','ready for packaging')->where('id','=', $id)->get();
-    return view('pages.order.single-packaging-order',compact('packaging_order'));
+    // $packaging_order=Order::where('delivery_status','=','ready for packaging')->where('id','=', $id)->get();
 
+    $packaging_orders=DB::table('orders as order')
+    ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+    ->join('products as product', 'order_details.product_id', '=', 'product.id')
+    ->where('order.id', '=', $id)
+    ->get(['order.id',
+    'order.date',
+    'order.delivery_status',
+    'order_details.selling_price',
+    'order_details.circle_price',
+    'order_details.variation',
+    'order_details.quantity',
+    'order_details.po_status',
+    'product.sku',
+    'product.photos',
+    'product.product_name',
+    ]);	
 
+    return view('pages.order.single-packaging-order',compact('packaging_orders'));
    }
 
    public function editPackagingOrderDetails($id){
-
 
     $packaging_order = Order::find($id);
     $packaging_order_details = OrderDetails::where('order_id','=', $packaging_order->id )->where('delivery_status','=','ready for packaging')->first();
 
     return response()->json(['status' => 200,'packagingOrderDetails' => $packaging_order_details]); 
    
-
 }
 
 
@@ -98,7 +137,26 @@ public function updateReturnedPackagingOrder(Request $request){
 
 }
 
+public function editPurchasedStatus($id){
+
+  $selected_order = Order::find($id);
+  return response()->json(['status' => 200,'selectedOrder' => $selected_order]); 
+      
+
+    }
+
+    public function updatePurchasedStatus(Request $request){
+
+        $order_id = $request->input('selected-order-id');
+        $update_order = OrderDetails::where('order_id','=',$order_id)->first();
+        $update_order->po_status= $request->input('packaging_order_purchase_status');
+        $update_order->update();
+        return redirect()->back()->with('status','Order'.$order_id. ' Purchase Status Has been Updated');
+
+    }
 
 // End of class...............................................
 }
+
+
 

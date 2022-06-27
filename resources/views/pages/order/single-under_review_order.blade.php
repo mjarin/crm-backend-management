@@ -25,8 +25,12 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
+            <div class="card-header bg-white">
+              @foreach($orders as $order)
+              <button type="button" class="btn btn-success underReviewOrder-purchase-status-btn" data-toggle="modal" 
+              value="{{$order->id}}" data-target="#update-purchase-status-underReviewOrder">
+              <i class="fa fa-plus-circle"></i> Update Purchase Status</button>
+              @endforeach 
             </div>
             <!-- /.card-header -->
 
@@ -49,53 +53,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                   @foreach ($under_review_order as $order)
+                   @foreach ($orders as $order)
                    <tr> 
                     <td><input name='checkme[]' id="order" type='checkbox' value='67371'></td>
                     <td>{{$order->date}}</td> 
-                    <td>Mex029</td>
-                    <td>Cotton Mexi Mex029</td> 
-                    <td><img src="{{asset('images/p-6.jpeg')}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->variation }}
-                        @endforeach 
-                    </td>
-
-                      <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                      {{ $orderdetails->quantity }}
-                      @endforeach 
-                    </td>
-
-                        <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                           {{ $orderdetails->circle_price }}
-                        @endforeach 
-                      </td> 
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->selling_price }}
-                        @endforeach 
-                    
-                    </td>
-                    <td>{{$order->delivery_status}}</td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                     @endforeach 
-                    </td>
+                    <td>{{$order->sku}}</td>
+                    <td>{{$order->product_name}}</td> 
+                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img" width="90" height="120"></td>
+                    <td>{{ $order->variation}}</td>
+                      <td>{{$order->quantity }}</td>
+                       <td>{{ $order->circle_price }}</td> 
+                       <td>{{$order->selling_price }} </td>
+                        <td>{{$order->delivery_status}}</td>
+                    <td>{{ $order->po_status}} </td>
                     {{-- Toools td starts--}} 
                     <td>
 {{-- Update Button --}}
 <button class="btn btn-success btn-sm btn-flat under-review-order-deatail-btn" value="{{$order->id}}" data-toggle="modal" 
-data-target="#under_review_order_deatils_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Update</button><br>
+data-target="#orders_deatils_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Update</button><br>
 {{-- Returned Button --}}
 <button class="btn btn-info btn-sm btn-flat returned-under-review-order-btn" value="{{$order->id}}" data-toggle="modal" 
 data-target="#under-review-order-returned-id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button><br> 
 {{-- Purchased Button --}}
 <a href="{{url('purchased-under-review-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-flat"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
 <button class="btn btn-danger btn-sm btn-flat delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="#" target="”_blank”"><button class="btn-info"><i class="fa fa-edit"></i> Processed</button></a>
                     </td>
                    </tr>                    
                 @endforeach 
@@ -103,7 +85,8 @@ data-target="#under-review-order-returned-id"><i class="fa fa-edit"></i>&nbsp;&n
               </table>
 
             @include('layouts.inc.UnderReviewOrders.under-review-order-update-details-modal')  
-            @include('layouts.inc.UnderReviewOrders.under-review-order-returned-modal') 
+            @include('layouts.inc.UnderReviewOrders.under-review-order-returned-modal')
+            @include('layouts.inc.UnderReviewOrders.update-purchase-status-modal')  
             
 
             </div>

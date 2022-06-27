@@ -25,66 +25,53 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
+            <div class="card-header bg-white">
+              <div class="col-md-12">
+                @foreach($orders as $order)
+                <button type="button" class="btn btn-success ohder-btn-purchase-status" data-toggle="modal" 
+                data-target="#ohd-update-purchase-status" value="{{ $order->id}}"><i class="fa fa-plus-circle"></i> 
+                Update Purchase Status</button>
+                @endforeach 
+              </div>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
+              <div class="col-md-12">
             <table class="table table-bordered table-hover data_table ">
-            <thead>
-            <tr>
-            <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
-            <th style="width:10%">Date</th>
-            <th style="width:5%">SKU</th>
-                 <th style="width:20%">Product Name</th>
-                 <th style="width:8%">Image</th>
-                 <th style="width:10%">Variation</th>
-                 <th style="width:10%">Quantity</th>
-                 <th style="width:10%">Circle Price (Unit)</th>
-                 <th style="width:5%">Selling Price (Unit)</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:8%">PO Status</th>
-                 <th style="width:50%">Tools</th>
+              <thead>
+                <tr role="row">
+                  <th style="width:8%;">
+                    <input type="checkbox" onclick="checkAll(this)" /> SL.
+                  </th>
+                  <th style="width:8%;">Date</th>
+                  <th style="width:5%;">SKU</th>
+                  <th style="width:10%;">Product Name</th>
+                  <th style="width:10%;">Image</th>
+                  <th style="width:10%;">Variation</th>
+                  <th style="width:10%;">Quantity</th>
+                  <th style="width:10%;">Circle Price (Unit)</th>
+                  <th style="width:10%;"> Selling Price (Unit)</th>
+                  <th style="width:10%;">Status</th>
+                  <th style="width:10%;">PO Status</th>
+                  <th style="width:10%;">Tools</th>
                 </tr>
-                </thead>
+              </thead>
                 <tbody>
-                   @foreach ($on_hold_order as $order)
-                   <tr> 
+                   @foreach ($orders as $order)
+                   <tr role="row"> 
                     <td><input name='checkme[]' id="order" type='checkbox' value='67371'></td>
-                    <td>{{$order->date}}</td> 
-                    <td>MEX246</td>
-                    <td>Cotton Mexi MEX246</td> 
-                    <td><img src="{{asset('images/p-5.jpg')}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->variation }}
-                        @endforeach 
-                    </td>
-
-                      <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                      {{ $orderdetails->quantity }}
-                      @endforeach 
-                    </td>
-
-                        <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                           {{ $orderdetails->circle_price }}
-                        @endforeach 
-                      </td> 
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->selling_price }}
-                        @endforeach 
-                    
-                    </td>
+                    <td>{{$order->date}}</td>
+                    <td>{{$order->sku}}</td>
+                    <td>{{$order->product_name}}</td> 
+                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
+                    <td>{{ $order->variation }}</td>
+                    <td>{{$order->quantity }}</td>
+                    <td>{{$order->circle_price }}</td>
+                    <td>{{$order->selling_price }}</td>
                     <td>{{$order->delivery_status}}</td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                     @endforeach 
-                    </td>
+                    <td>{{ $order->po_status}}</td>
+                    
                     {{-- Toools td starts--}} 
                     <td>
 {{-- Update Button --}}
@@ -94,16 +81,19 @@ data-target="#on_hold_order_deatils_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&n
 <button class="btn btn-info btn-sm btn-flat returned-on-hold-order-btn" value="{{$order->id}}" data-toggle="modal" 
 data-target="#on-hold-order-returned-id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button><br> 
 {{-- Purchased Button --}}
-<a href="{{url('purchased-ready-to-deliver-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-flat"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
+<a href="{{url('purchased-ready-to-deliver-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-sm btn-flat "><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
 <button class="btn btn-danger btn-sm btn-flat delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="#" target="”_blank”"><button class="btn btn-info btn-sm btn-flat "><i class="fa fa-edit"></i> Processed</button></a>
                     </td>
                    </tr>                    
                 @endforeach 
                 </tbody> 
               </table>
+            </div>
 
             @include('layouts.inc.OnHoldOrders.on-hold-order-update-details-modal')  
-            @include('layouts.inc.OnHoldOrders.on-hold-order-returned-modal') 
+            @include('layouts.inc.OnHoldOrders.on-hold-order-returned-modal')
+            @include('layouts.inc.OnHoldOrders.update-purchase-status-modal')  
             
 
             </div>

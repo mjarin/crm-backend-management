@@ -17,6 +17,19 @@ body {
     overflow:scroll;
 } */
 /* navbar Color  */
+
+table.dataTable thead th {
+
+    border-bottom: 1px solid #dee2e6!important;
+   
+}
+
+table.dataTable  td {
+    vertical-align: top;
+}
+
+
+
 .bg-custom{
     background-color:#3C8DBC !important;
     
@@ -51,14 +64,17 @@ body {
     border-radius: 0!important;
 }
 
-/* #manage-courier-table-parent-div{
+li span #position{
 
     position:relative!important;
 
 }
-#manage-courier-table{
+li span.stock-count{
 
     position:absolute!important;
-    right:100%!important;
+    bottom:23px!important;
+    left:132px!important;
+    width:25px;
+    height:25px;
 
-} */
+}

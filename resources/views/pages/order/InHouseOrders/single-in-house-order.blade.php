@@ -10,9 +10,8 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
-            <a href="#">Order</a></li>
+            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
+            <li class="breadcrumb-item">Order</li>
             <li class="breadcrumb-item active">Order Details</li>
           </ol>
         </div>
@@ -27,10 +26,13 @@
         {{-- <div class="col-md-12"> --}}
           <div class="card">
             <div class="card-header bg-white">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_form"><i class="fa fa-plus-circle"></i> Update Purchase Status</button>
+              @foreach($in_house_order as $order)
+                <button type="submit" class="btn btn-success btn_update_purchase_status_iho" data-toggle="modal" 
+                data-target="#update_purchase_status_iho" value="{{ $order->id }}"><i class="fa fa-plus-circle">
+                </i>Update Purchase Status</button>
+                @endforeach
             </div>
             <!-- /.card-header -->
-
             <div class="card-body scrollable">
             <table class="table table-bordered table-hover data_table ">
             <thead>
@@ -50,42 +52,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                   @foreach ($in_house_order as $order)
+                   @foreach($in_house_order as $order)
                    <tr> 
                     <td><input name='checkme[]' id="order" type='checkbox' value='67371'></td>
                     <td>{{$order->date}}</td> 
-                    <td>JKT105</td>
-                    <td>Stylish Winter fashionable jacket for Men JKT105</td> 
-                    <td><img src="{{asset('images/p-8.jpg')}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->variation }}
-                        @endforeach 
-                    </td>
-
-                      <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                      {{ $orderdetails->quantity }}
-                      @endforeach 
-                    </td>
-
-                        <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                           {{ $orderdetails->circle_price }}
-                        @endforeach 
-                      </td> 
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->selling_price }}
-                        @endforeach 
-                    
-                    </td>
-                    <td>{{$order->delivery_status}}</td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                     @endforeach 
-                    </td>
+                    <td>{{$order->sku}}</td>
+                    <td>{{$order->product_name}}</td> 
+                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img"  style="width=90px; max-width:100px;"></td>
+                    <td>{{$order->variation}}</td> 
+                    <td>{{$order->quantity}}</td> 
+                    <td>{{$order->circle_price}}</td> 
+                    <td>{{$order->selling_price}}</td>
+                    <td>{{$order->delivery_status}}</td> 
+                    <td>{{$order->po_status}}</td>
                     {{-- Toools td starts--}} 
                     <td>
 {{-- Update Button --}}
@@ -103,9 +82,9 @@ data-target="#in_house_order_returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;
                 @endforeach 
                 </tbody> 
               </table>
-
             @include('layouts.inc.InHouseOrders.in-house-order-update-details-modal')  
-            @include('layouts.inc.InHouseOrders.in-house-order-returned-modal') 
+            @include('layouts.inc.InHouseOrders.in-house-order-returned-modal')
+            @include('layouts.inc.InHouseOrders.update-purchase-status-modal-iho')
             </div>
             <!-- /.card-body --> 
           </div>

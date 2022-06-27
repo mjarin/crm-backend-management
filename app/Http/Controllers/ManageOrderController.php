@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Courier;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManageOrderController extends Controller
 {
@@ -20,8 +21,31 @@ class ManageOrderController extends Controller
 
         $couriers = Courier::all();
         $orderId =$request->input('order_id');
-        $order =Order::where('id','=',$orderId)->get();
-        return view('pages.order.manageOrders.view-selected-order',compact('order','couriers'));
+        // $order =Order::where('id','=',$orderId)->get();
+        $orders=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
+        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+        ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
+        ->where('order.id', '=',$orderId)
+        ->get(['order.id',
+        'order.date',
+        'order.code',
+        'order.customer_name',
+        'order.delivery_status',
+        'order.collected_price',
+        'order.delivery_man',
+        'order.delivery_date',
+        'order.remarks',
+        'order.updated_by',
+        'order_details.circle_price',
+        'shop.shop_name',
+        'address.address',
+        'product.product_name',
+        'supplier.supplier_name'
+        ]);
+        return view('pages.order.manageOrders.view-selected-order',compact('orders','couriers'));
 
     }
 
@@ -29,8 +53,31 @@ class ManageOrderController extends Controller
 
         $couriers = Courier::all();
         $orderId =$request->input('orderId');
-        $order =Order::where('id','=',$orderId)->get();
-        return view('pages.order.manageOrders.view-selected-order',compact('order','couriers'));
+        // $order =Order::where('id','=',$orderId)->get();
+        $orders=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
+        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+        ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
+        ->where('order.id', '=',$orderId)
+        ->get(['order.id',
+        'order.date',
+        'order.code',
+        'order.customer_name',
+        'order.delivery_status',
+        'order.collected_price',
+        'order.delivery_man',
+        'order.delivery_date',
+        'order.remarks',
+        'order.updated_by',
+        'order_details.circle_price',
+        'shop.shop_name',
+        'address.address',
+        'product.product_name',
+        'supplier.supplier_name'
+        ]);
+        return view('pages.order.manageOrders.view-selected-order',compact('orders','couriers'));
 
     }
 
@@ -60,7 +107,23 @@ class ManageOrderController extends Controller
 
     public function viewSingleSelectedOrder($id){
 
-        $selected_order=Order::where('id','=', $id)->get();
+        // $selected_order=Order::where('id','=', $id)->get();
+        $selected_order=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->where('order.id', '=', $id)
+        ->get(['order.id',
+        'order.date',
+        'order.delivery_status',
+        'order_details.selling_price',
+		'order_details.circle_price',
+		'order_details.variation',
+        'order_details.quantity',
+		'order_details.po_status',
+        'product.sku',
+		'product.photos',
+        'product.product_name',
+        ]);	
         return view('pages.order.manageOrders.single-selected-order',compact('selected_order'));
     }
 
@@ -112,7 +175,7 @@ class ManageOrderController extends Controller
 
     public function updateSelectedOrderPurchaseStatus(Request $request){
 
-        $selected_order_id = $request->input('selected-order-purchase-status-id');
+        $selected_order_id = $request->input('sops_id');
         $update_selected_order = OrderDetails::where('order_id','=',$selected_order_id)->first();
         $update_selected_order->po_status= $request->input('purchase_status');
         $update_selected_order->update();

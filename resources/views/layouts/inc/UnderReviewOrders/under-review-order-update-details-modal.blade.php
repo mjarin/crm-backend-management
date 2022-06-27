@@ -1,4 +1,4 @@
-<div class="modal fade" id="under_review_order_deatils_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="under-review-order-deatail-btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 800px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">

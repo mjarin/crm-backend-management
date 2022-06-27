@@ -1,6 +1,6 @@
 
 <div class="modal fade" id="purchase_status_modal_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+    <div class="modal-dialog" style="max-width: 700px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Update Status</h4> 
@@ -10,16 +10,16 @@
         </div>
         <div class="modal-body px-5">
           {{-- Form Start.......................... --}}
-          <form id="form" class="form-horizontal" action="{{url('update-purchase-status')}}" method="POST">
+          <form id="form" class="form-horizontal" action="{{url('update-purchase-status-manage-order')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="hidden" name="selected-order-purchase-status-id" id="selected-order-purchase-status-id">
+            <input type="text" name="sops_id" id="sops_id">
             <br><br>
             <div class="form-group row">
-                <label for="purchase_status" class="col-sm-2 control-label">Select Status</label>
-                   <div class="col-sm-10"> 
+                <label for="purchase_status" class="col-sm-3 control-label">Select Status</label>
+                   <div class="col-sm-9"> 
                        <select class="form-control" name="purchase_status" id="purchase_status">
-                        <option selected="" value="Purchased">Purchased</option>
+                        <option value="Purchased" selected="" >Purchased</option>
                         <option value="Unpurchased">Not Purchased</option>
                         </select>
                      </select>

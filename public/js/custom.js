@@ -2,12 +2,12 @@
 // For DataTable...........................................................................
 
 $(document).ready( function () {
+    // DAtatable................
   $('.data_table').DataTable({
-    "scrollX": true
+    // "scrollX": true,
+    "scrollY": true
   });
 
-
-// ......................................................................................................................................................
 // jquery For  Pending Order ......................................................................................
   $(document).on('click','.edit-btn', function () {
 
@@ -21,7 +21,7 @@ $.ajaxSetup({
 
     $.ajax({
       method: "GET",
-      url: "edit_pending_order/"+ order_id,
+      url: "/edit_pending_order/"+ order_id,
       success: function (response) {
         // console.log(response);
         $('#order_code').val(response.pendingOrder.id);
@@ -56,8 +56,6 @@ $.ajaxSetup({
 
     // alert(pending_orderdeatils_id);
 
-
-
     $.ajax({
       method: "GET",
       url: "/edit_pending_order_details/"+ pending_orderdeatils_id, 
@@ -72,6 +70,18 @@ $.ajaxSetup({
       }
     });
     
+  });
+
+    // for increment.........................................    
+    $(":input#pending_quantity").on('keyup mouseup', function () {
+      var incValue = $("#pending_quantity").val();
+      // alert(incValue);
+      var value = parseInt(incValue , 10);
+      value =isNaN(value) ? 0 : value;
+      if(value > 0){   
+          $(":input#pending_quantity").val(value);
+      }
+      
   });
 
 
@@ -92,10 +102,13 @@ $.ajaxSetup({
   });
 
 
+
+
+
   
 
 
-// ......................................................................................................................................................
+// Processing_order..........................................................................................................................
 // jquery For  PROCESSSINg Order ......................................................................................
 $(document).on('click','.edit-btn-processing-order', function () {
 
@@ -147,6 +160,22 @@ $(document).on('click','.edit-processing-order-deatail-btn',function () {
         
 
 
+      }
+  });
+});
+
+    
+$(document).on('click','.edit-btn-processingOrder-returned',function () {
+  var processing_order_returned_id =$(this).val();
+// alert(processing_order_returned_id)
+
+  $.ajax({
+      method: "GET",
+      url: "/processing-order-returned-edit/"+processing_order_returned_id,
+      success: function (response) {
+        // console.log(response);
+        $('#processing_returned_order_id').val(response.processingOrder.id);
+        $('h2#processing_ret_order_code').html(response.processingOrder.id);
       }
   });
 });
@@ -228,6 +257,25 @@ $(document).on('click','.return-packaging-order-btn',function () {
   });
 });
 
+$(document).on('click','.edit-purchased-status',function () {
+  var purchased_status_id =$(this).val();
+
+  // alert(purchased_status_id);
+
+  $.ajax({
+      method: "GET",
+      url: "/edit-purchased-status/"+purchased_status_id,
+      success: function (response) {
+        console.log(response);
+        $('#selected-order-id').val(response.selectedOrder.id);
+      }
+  });
+});
+
+
+
+
+
 
 // ......................................................................................................................................................
 // jquery For  Ready To Deliver Order ......................................................................................
@@ -302,6 +350,22 @@ $(document).on('click','.return-ready-to-deliver-btn',function () {
       }
   });
 });
+
+// Update Status 
+$(document).on('click','.rdt-edit-btn',function () {
+  var value_id =$(this).val();
+
+  $.ajax({
+      method: "GET",
+      url: "/append-id-to-rtd-update-status/"+value_id,  
+      success: function (response) {
+        console.log(response); 
+        $('#order_id').val(response.foundOrder.id); 
+      }
+  });
+});
+
+
 
 
 // ......................................................................................................................................................
@@ -381,8 +445,25 @@ $(document).on('click','.on-hold-order-deatail-btn',function () {
   });
 });
 
+
+
+$(document).on('click','.ohder-btn-purchase-status',function () {
+  var id =$(this).val();
+
+// alert(on_hold_order_returned_id)
+
+  $.ajax({
+      method: "GET",
+      url: "/ohder-purchase-status-edit/"+id,  
+      success: function (response) {
+        console.log(response);
+        $('#hidden_input_id').val(response.OnHoldOrderId.id); 
+      }
+  });
+});
+
 // ......................................................................................................................................................
-// jquery For  On Hold Orders ......................................................................................
+// jquery For Under ReviewOrders ......................................................................................
 
 $(document).on('click','.under-review-order-btn',function () {
   var under_review_order_id = $(this).val();
@@ -451,6 +532,27 @@ $(document).on('click','.returned-under-review-order-btn',function () {
 });
 
 
+$(document).on('click','.underReviewOrder-purchase-status-btn',function () {
+  var id =$(this).val();
+
+// alert(on_hold_order_returned_id)
+
+  $.ajax({
+      method: "GET",
+      url: "/underReviewOrder-purchase-status-edit/"+id,  
+      success: function (response) {
+        console.log(response);
+        $('#hidden_input_id').val(response.underReviewOrderId.id); 
+      }
+  });
+});
+
+
+
+
+
+
+
 // ......................................................................................................................................................
 // jquery For In Transit  Orders ......................................................................................
 
@@ -516,6 +618,102 @@ $(document).on('click','.returned-in-transit-order-btn',function () {
         $('h2#in_transit_returnedOrder').html(response.InTransitReturnedOrder.id);
       }
   });
+});
+
+
+$(document).on('click','.inTransitOrder-update-status',function () {
+  var id =$(this).val();
+
+// alert(in_transit_order_returned_id)
+
+  $.ajax({
+      method: "GET",
+      url: "/intro-purchase-status-edit/"+id, 
+      success: function (response) {
+        // console.log(response);
+        $('#hidden_input_id').val(response.InTransitReturnedOrder.id);
+      }
+  });
+});
+
+
+// In Stock Orders...............................................................................................
+
+$(document).on('click','.in-stock-order-btn',function () {
+  var id = $(this).val();
+  alert(id);
+
+
+  $.ajax({
+    method: "GET",
+    url: "/edit-in-stock-orders/"+id,  
+    success: function (response) {
+      // console.log(response);    
+      $('#hidden_id').val(response.inStockOrders.id);
+      $('span#order_code').html(response.inStockOrders.code);
+      $('#in_stock_order_code').val(response.inStockOrders.id); 
+      $('#customer_delivery_charge').val(response.inStockOrders.customer_charge);
+      $('#circle_delivery_charge').val(response.inStockOrders.delivery_charge);
+      $('#delivery_status').val(response.inStockOrders.delivery_status);
+
+     
+  
+    }
+ }); 
+
+});
+
+
+$(document).on('click','.update-btn-instock-order',function () {
+  var update_id =$(this).val();
+
+  // alert(update_id);
+
+  $.ajax({
+    method: "GET",
+    url: "/instock-order-details-edit/"+update_id,  
+    success: function (response) {
+      console.log(response);    
+      $('#InStock_order_details_id').val(response.InStockOrderDetails.order_id);
+      $('#InStock_circle_price').val(response.InStockOrderDetails.circle_price); 
+      $('#InStock_selling_price').val(response.InStockOrderDetails.selling_price);
+      $('#InStock_quantity').val(response.InStockOrderDetails.quantity);
+      $('#InStock_variation').val(response.InStockOrderDetails.variation);
+    }
+ }); 
+});
+
+
+
+
+
+$(document).on('click','.edit-btn-inStockOrder-returned',function () {
+  var inStockOrder_returned_id = $(this).val();
+
+
+  $.ajax({
+      method: "GET",
+      url: "/returned-in-stock-order-edit/"+inStockOrder_returned_id,  
+      success: function (response) {
+        console.log(response);
+        $('#InStock_returnedOrder_id').val(response.InStockOrder.id);
+        $('#InStock_returned_order_id').html(response.InStockOrder.id);   
+      }
+  });
+});
+
+$(document).on('click','.ups-btn',function () {
+  var id =$(this).val();
+
+  $.ajax({
+      method: "GET",
+      url: "/ups-edit/"+id,
+      success: function (response) {
+        console.log(response);
+        $('#hidden_input_id').val(response.InStockOrderId.id);
+      }
+  });
+
 });
 
 
@@ -653,7 +851,7 @@ $(document).on('click','.returned-returning-order-btn',function () {
 
 
   // ......................................................................................................................................................
-  //jquery For So-Status-Orders......................................................................................
+  //jquery For Manage-Orders......................................................................................
   $(document).on('click','.btn-edit-update-selected-order',function () {
     var selected_order_id = $(this).val();
 
@@ -686,13 +884,13 @@ $(document).on('click','.returned-returning-order-btn',function () {
 
 
   $(document).on('click','.edit-selected-order-deatails',function () {
-    var selected_order_deatails_id = $(this).val();
+    var id = $(this).val();
   
-    // alert(selected_order_deatails_id)
+    alert(id);
   
     $.ajax({
       method: "GET",
-      url: "/selected-order-details-edit/"+selected_order_deatails_id,  
+      url: "/so-details-edit/"+id,  
       success: function (response) {
         console.log(response); 
         $('input#selected_order_details_id').val(response.selectedOrderDetails.order_id);
@@ -709,33 +907,35 @@ $(document).on('click','.returned-returning-order-btn',function () {
   $(document).on('click','.returned-selected-order-btn',function () {
     var selected_order_returned_id =$(this).val();
   
+    alert(selected_order_returned_id)
   
     $.ajax({
         method: "GET",
         url: "/edit-returned-selected-order/"+selected_order_returned_id,  
         success: function (response) {
-          // console.log(response);
+          console.log(response);
           $('#selected_returned_order_id').val(response.selectedReturnedOrder.id);
           $('h2#selected_returnedOrder').html(response.selectedReturnedOrder.id);   
         }
     });
   });
 
-  $(document).on('click','.update-purchase-status-btn',function () {
-    var selected_order_purchase_status_id =$(this).val();
-  
+
+  $(document).on('click','.sops-ups-btn',function () {
+    var id_val = $(this).val();
+
+    alert(id_val);
   
     $.ajax({
-        method: "GET",
-        url: "/edit-selected-order-purchase-status/"+selected_order_purchase_status_id,  
+        method:"GET",
+          url:"/sops-edit/"+id_val,
         success: function (response) {
-          // console.log(response);
-          $('#selected-order-purchase-status-id').val(response.selectedOrder.id);   
+          console.log(response);
+          $('#sops_id').val(response.selectedOrder.id);
         }
     });
   });
-
-
+  // ............................................................................................................................................................................
 
 
   //jquery For In-House-Orders......................................................................................
@@ -773,8 +973,15 @@ $(document).on('click','.returned-returning-order-btn',function () {
   $(document).on('click','.edit-in-house-order-deatails', function () { 
 
     var in_house_orderdeatils_id = $(this).val();
-    // alert(pending_orderdeatils_id);
+     alert(in_house_orderdeatils_id);
+     $.ajaxSetup({
 
+      headers: {
+  
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  
+      }
+  });
 
     $.ajax({
       method: "GET",
@@ -785,8 +992,14 @@ $(document).on('click','.returned-returning-order-btn',function () {
         $('#in_house_circle_price').val(response.InHouseOrderDetails.circle_price);
         $('#in_house_selling_price').val(response.InHouseOrderDetails.selling_price);
         $('#in_house_quantity').val(response.InHouseOrderDetails.quantity);
-        $('#in_house_variation').val(response.InHouseOrderDetails.variation);        
+        $('#in_house_variation').val(response.InHouseOrderDetails.variation);  
       }
+      //   error: function(xhr){
+
+      //     console.log(xhr.response.responseText);
+
+       
+      // }
     }); 
   });
 
@@ -808,6 +1021,40 @@ $(document).on('click','.returned-returning-order-btn',function () {
         }
     });
   });
+
+  $(document).on('click','.btn_update_purchase_status_iho',function () {
+    var id =$(this).val();
+
+    alert(id)
+
+    $.ajax({
+      method: "GET",
+      url: "/iho_purchase_status_edit/"+id,  
+      success: function (response) {
+        console.log(response);
+        $('input#hidden_input_id_inho').val(response.inHouseOrder.id);
+
+      }
+  });
+});   
+
+
+// ManageCourier ................................................................................................
+
+$(document).on('click','.delete-couriar-btn',function () {
+  var couriar_id =$(this).val();
+
+
+  $.ajax({
+      method: "GET",
+      url: "/delete-couriart/"+couriar_id,  
+      success: function (response) {
+        // console.log(response);
+        $('#in_house_returned_order_id').val(response.inHouseReturnedOrder.id);
+        $('#in_house_returnedOrder').html(response.inHouseReturnedOrder.id);   
+      }
+  });
+});
   
 
 

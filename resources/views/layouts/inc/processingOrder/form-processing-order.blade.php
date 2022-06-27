@@ -99,7 +99,6 @@
                     <option value="cancelled">Cancelled</option>
                     <option value="returned">Returned</option>
                     </select>
-                 </select>
                </div>
            </div>
   

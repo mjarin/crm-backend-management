@@ -7,7 +7,7 @@
 
     <ul class="navbar-nav ml-auto">        
 		<li class="dropdown user user-menu open">
-            <a href="#" id="user-name-hover" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            <a href="#" id="user-name-hover" class="text-decoration-none" data-toggle="dropdown" aria-expanded="true">
               <img src="{{asset('images/profile.jpg')}}" class="user-image" alt="User Image">
               <span class="hidden-xs text-white" style="font-size:19px;">
                 @if(Session::has('LoggedUserId'))

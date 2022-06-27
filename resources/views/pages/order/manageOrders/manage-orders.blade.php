@@ -27,9 +27,9 @@
                     <div class="card-body">
                         <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <form action="{{url('step1-submit-order')}}" method="POST" enctype="multipart/form-data" >
+                            <form action="{{url('step1-submit-order')}}" method="GET" enctype="multipart/form-data" >
                                 @csrf
-                                @method('PUT') 
+                                {{-- @method('PUT')  --}}
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">

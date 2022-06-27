@@ -10,8 +10,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
+            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
             <li class="breadcrumb-item">Order</li>
             <li class="breadcrumb-item active">Order Details</li>
           </ol>
@@ -22,81 +21,67 @@
 
   <!-- Main content -->
   <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        {{-- <div class="col-md-12"> --}}
-          <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
-            </div>
-            <!-- /.card-header -->
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="card">
+                <div class="card-header bg-white"> 
+                  @foreach ($packaging_orders as $order)      
+                    <button type="button" class="btn btn-success edit-purchased-status" 
+                    value="{{$order->id}}" data-toggle="modal" data-target="#update-purchased-status-modal-id">
+                    <i class="fa fa-plus-circle mr-1"></i>
+                  Update Purchase Status </button>
+                    @endforeach        
+                  </div><!-- /.card-header -->
 
-            <div class="card-body scrollable">
-            <table class="table table-bordered table-hover data_table ">
-            <thead>
-            <tr>
-            <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
-            <th style="width:10%">Date</th>
-            <th style="width:5%">SKU</th>
-                 <th style="width:20%">Product Name</th>
-                 <th style="width:8%">Image</th>
-                 <th style="width:10%">Variation</th>
-                 <th style="width:10%">Quantity</th>
-                 <th style="width:10%">Circle Price (Unit)</th>
-                 <th style="width:5%">Selling Price (Unit)</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:8%">PO Status</th>
-                 <th style="width:10%">Tools</th>
-                </tr>
-                </thead>
-                <tbody>
-                   @foreach ($packaging_order as $order)
+                <div class="card-body scrollable">
+                    <div class="col-md-12 col-sm-12">
+                        <table class="table table-bordered table-hover data_table  no-footer" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_disabled" rowspan="1" colspan="1"><input type="checkbox"
+                                     onclick="checkAll(this)"> SL.</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Date</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">SKU</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Product Name</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Image</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Variation</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Quantity</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Circle Price (Unit)</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Selling Price (Unit)</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Status</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">PO Status</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1">Tools</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                   @foreach ($packaging_orders as $order)
                    <tr> 
                     <td><input name='checkme[]' id="order" type='checkbox' value='67371'></td>
                     <td>{{$order->date}}</td> 
-                    <td>TS2844</td>
-                    <td>Exclusive Polo T-Shirt For Men TS2844</td> 
-                    <td><img src="{{asset('images/p-3.jpg')}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->variation }}
-                        @endforeach 
-                    </td>
-
-                      <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                      {{ $orderdetails->quantity }}
-                      @endforeach 
-                    </td>
-
-                        <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                           {{ $orderdetails->circle_price }}
-                        @endforeach 
-                      </td> 
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->selling_price }}
-                        @endforeach 
-                    
-                    </td>
-                    <td>{{$order->delivery_status}}</td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                     @endforeach 
+                    <td>{{$order->sku }}</td>
+                    <td>{{ $order->product_name }}</td> 
+                    <td><img src="{{ asset('images/' . $order->photos) }}" alt="product_img"
+                      style="max-width:100px; max-height=100px;"></td>
+                      <td>{{ $order->variation }}</td>
+                      <td>{{ $order->quantity }}</td>
+                      <td>{{ $order->circle_price }}</td>
+                      <td>{{ $order->selling_price }}</td>
+                      <td>{{ $order->delivery_status }}</td>
+                      <td>{{ $order->po_status }}</td>
                     </td>
                     {{-- Toools td starts--}} 
                     <td>
 {{-- Update Button --}}
-<button class="btn btn-success btn-sm btn-block edit-packaging-order-deatail-btn" value="{{$order->id}}" data-toggle="modal" 
-data-target="#packaging-order-details_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Update</button><br>
+<button class="btn btn-success btn-sm btn-flat  edit-packaging-order-deatail-btn" value="{{$order->id}}" data-toggle="modal" 
+data-target="#packaging-order-details_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Update</button>
 {{-- Returned Button --}}
-<button class="btn btn-info btn-sm btn-block return-packaging-order-btn" value="{{$order->id}}" data-toggle="modal" 
-data-target="#packaging-order-returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button><br> 
+<button class="btn btn-info btn-sm btn-flat  return-packaging-order-btn" value="{{$order->id}}" data-toggle="modal" 
+data-target="#packaging-order-returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button> 
 {{-- Purchased Button --}}
-<a href="" target="”_blank”"><button class="btn btn-primary btn-block"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
-<button class="btn btn-danger btn-sm btn-block delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="" target="”_blank”"><button class="btn btn-primary btn-sm btn-flat mt-1"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> 
+<button class="btn btn-danger btn-sm btn-flat  delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button> <br>
+{{-- Processed Button --}}
+<a href="#" target="”_blank”"><button class="btn btn-info btn-sm btn-flat mt-1 "><i class="fa fa-edit"></i> Processed</button></a>
                     </td>
                    </tr>                    
                 @endforeach 
@@ -105,6 +90,7 @@ data-target="#packaging-order-returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp
 
             @include('layouts.inc.readyToPackgingOrder.packaging-order-update-modal')
             @include('layouts.inc.readyToPackgingOrder.packaging-order-returned-modal') 
+            @include('layouts.inc.readyToPackgingOrder.update-purchased-status-modal') 
             
 
             </div>

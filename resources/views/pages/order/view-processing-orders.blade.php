@@ -11,13 +11,13 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
-            <li class="breadcrumb-item">Order</li>
+            <a href="#">Home</a><span class="mr-2">><span></li>
+            <li class="breadcrumb-item">Order<span class="mr-2">><span></li>
             <li class="breadcrumb-item active">Processing Orders</li>
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
+    </div><!--/.container-fluid-->
   </section>
 
   <!-- Main content -->
@@ -26,65 +26,51 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-white">
               <p class="mt-2" id="result">Total Number of Items Selected = <p>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table id=""  class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered table-hover data_table ">
             <thead>
-            <tr>
-            {{-- <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th> --}}
-            <th style="width:7%">Order Date</th>
-            <th style="width:6%">Order ID</th> 
-                 <th style="width:10%">Seller Shop Name</th>
-                 <th style="width:8%">Customer</th>
-                 <th style="width:10%">Address</th>
-                 <th style="width:10%">Ordered Items</th>
-                 <th style="width:10%">Supplier</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:5%">Priority</th>
-                  <th style="width:10%">Circle Price</th>
-                 <th style="width:10%">Collected Price</th>
-                 <th style="width:8%">Delivery Man</th>
-                 <th style="width:7%">Delivery Date</th>
-                 <th style="width:10%">Product Status</th>  
-                 <th style="width:5%">Remarks</th>
-                 <th style="width:15%">Tools</th>
-                </tr>
+              <tr role="row">
+                <th style="width: 35.8681px;" class="sorting_disabled" rowspan="1" colspan="1">Order Date</th>
+                <th style="width: 60.0347px;" class="sorting_disabled" rowspan="1" colspan="1">Order ID</th>
+                <th style="width: 98.5764px;" class="sorting_disabled" rowspan="1" colspan="1">Seller Shop Name</th>
+                <th style="width: 74.2188px;" class="sorting_disabled" rowspan="1" colspan="1">Customer</th>
+                <th style="width: 210.694px;" class="sorting_disabled" rowspan="1" colspan="1">Address</th>
+                <th style="width: 124.774px;" class="sorting_disabled" rowspan="1" colspan="1">Ordered Items</th>
+                <th style="width: 63.0035px;" class="sorting_disabled" rowspan="1" colspan="1">Status</th>
+                <th style="width: 47.6562px;" class="sorting_disabled" rowspan="1" colspan="1">Priority</th>
+                <th style="width: 35.2431px;" class="sorting_disabled" rowspan="1" colspan="1">Circle Price</th>
+                <th style="width: 57.9688px;" class="sorting_disabled" rowspan="1" colspan="1">Collected Price</th>
+                <th style="width: 65.9549px;" class="sorting_disabled" rowspan="1" colspan="1">Delivery Man</th>
+                <th style="width: 51.441px;" class="sorting_disabled" rowspan="1" colspan="1">Delivery Date</th>
+                <th style="width: 65.9896px;" class="sorting_disabled" rowspan="1" colspan="1">Product Status</th>
+                <th style="width: 86.4236px;" class="sorting_disabled" rowspan="1" colspan="1">Remarks</th>
+                <th style="width: 38.2292px;" class="sorting_disabled" rowspan="1" colspan="1">Tools</th>
+            </tr>
                 </thead>
                 <tbody>
                    @foreach ($orders as $order)
                    <tr> 
                     <td>{{$order->date}}</td> 
                     <td>{{$order->code}}</td>
-                    <td>Demo Seller Shop</td>
+                    <td>{{$order->shop_name}}</td>
                     <td>{{$order->customer_name}}</td> 
-                    {{-- <td>{{$order->seller_id}}</td>  --}}
-                    <td>{{$order->shipping_address}}</td> 
-                    <td>OrderItem</td>
-                    <td>Supplier</td>
+                    <td>{{$order->address}}</td> 
+                    <td>{{$order->product_name}}</td>
+                    <td>{{$order->supplier_name}}</td>
                     <td>{{$order->delivery_status}}</td>
-                    <td>High</td> 
-                    {{-- <td></td> --}}
-                    <td>
-                      {{-- {{$order->orderDetails->circle_price}} --}}
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
+                    <td><span class="text-danger font-weight-bold">High</span></td> 
+                    <td>{{$order->circle_price}}</td> 
                     <td>{{$order->collected_price}}</td> 
                     <td>{{$order->delivery_man}}</td>
                     <td>{{$order->delivery_date}}</td>
-                    <td>                     
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                        @endforeach </td>
-                    <td>
-                    {{$order->remarks}}</td>
-                    {{-- Toools td starts--}} 
-                    <td>
+                    <td>{{$order->po_status}}</td> 
+                    <td>{{$order->remarks}}</td>
+                    <td>{{-- Toools td starts--}} 
                       <button type="button" value="{{$order->id}}" class="btn btn-success btn-sm btn-flat edit-btn-processing-order" 
                             data-toggle="modal" data-target="#processing-order-modal">
                        <i class="fa fa-edit"></i></button>

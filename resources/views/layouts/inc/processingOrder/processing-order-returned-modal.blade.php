@@ -9,11 +9,10 @@
         </div>
         <div class="modal-body px-5">
           {{-- Form Start.......................... --}}
-          <form id="form" class="form-horizontal" action="{{url('update-processing-order-details')}}" method="POST">
+          <form id="form" class="form-horizontal" action="{{url('update-processing-order-returned')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="hidden" name="returned_order_id" id="returned_order_details_id" >
-            <input type="text" id="ret_oid" name="oid"><br><br>
+            <input type="hidden" name="processing_returned_order_id" id="processing_returned_order_id" >
            <div class="form-group row">
                 <label for="refund" class="col-sm-3 control-label">Return Reason</label>
 
@@ -23,7 +22,7 @@
             </div> 
             <div class="text-center">
                 <p>RETURN PRODUCT FROM ORDER ID</p>
-                <h2 id="ret_order_code" class="bold">68465</h2>
+                <h2 id="processing_ret_order_code" class="bold"></h2>
             </div>
 
             <div class="modal-footer">

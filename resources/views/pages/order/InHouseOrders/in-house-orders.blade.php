@@ -10,8 +10,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
+            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
             <li class="breadcrumb-item active">In House Orders</li>
           </ol>
         </div>
@@ -49,15 +48,10 @@
                     <td>{{$order->date}}</td> 
                     <td>{{$order->id}}</td>
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->shipping_address}}</td> 
+                    <td>{{$order->address}}</td> 
                     <td>{{$order->delivery_status}}</td>
-                    <td>
-                      {{-- {{$order->orderDetails->circle_price}} --}}
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
-                    <td>{{$order->collected_price}}</td> 
+                    <td>{{$order->circle_price}}</td>
+                    <td>{{$order->collected_price}}</td>
                     <td  class="text-success font-weight-bold">{{$order->payment_status}}</td>
                     {{-- Toools td starts--}} 
                     <td>

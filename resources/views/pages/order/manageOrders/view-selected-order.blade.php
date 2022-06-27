@@ -27,9 +27,9 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <form action="{{ url('submit-order-id-step2') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('submit-order-id-step2') }}" method="GET" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
+                                {{-- @method('PUT') --}}
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -79,16 +79,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($order as $order)
+                                    @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->date }}</td>
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->code }}</td>
-                                            <td>Source N Supply</td>
+                                            <td>{{ $order->supplier_name }}</td>
                                             <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->shipping_address }}</td>
+                                            <td>{{ $order->address }}</td>
                                             <td>{{ $order->delivery_status }}</td>
-                                            <td>CR001-CIRCLE-30-04-21</td>
+                                            <td>{{ $order->product_name}}</td>
                                             <td>{{ $order->collected_price }}</td>
                                             <td>{{ $order->delivery_man }}</td>
                                             <td>{{ $order->delivery_date }}</td>

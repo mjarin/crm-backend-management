@@ -25,15 +25,15 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
+            <div class="card-header bg-white py-4">
+              <button id="export" class="btn btn-info">Export Reports As Excel</button>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
             <table class="table table-bordered table-hover data_table ">
             <thead>
-            <tr>
+            <tr role="row">
             <th style="width:15%">Order Date</th>
             <th style="width:15%">Order ID</th>
                  <th style="width:20%">Seller Shop Name</th> 
@@ -51,22 +51,16 @@
                 </thead>
                 <tbody>
                    @foreach ($orders as $order)
-                   <tr> 
+                   <tr role="row"> 
                     <td>{{$order->date}}</td> 
                     <td>{{$order->code}}</td>
-                    <td>Source N Supply</td> 
+                    <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->shipping_address}}</td> 
+                    <td>{{$order->address}}</td> 
                     <td>{{$order->delivery_status}}</td>
-                    <td>
-                        Mex172-1(Cotton)
-                    </td>
+                    <td>{{$order->product_name}}</td>
                     <td>{{$order->remarks}}</td>
-                    <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
+                    <td>{{$order->circle_price}} </td> 
                     <td>{{$order->collected_price}}</td> 
                     <td>{{$order->delivery_man}}</td>
                     <td>{{$order->delivery_date}}</td> 
@@ -76,7 +70,7 @@
 data-target="#on-hold-order-modal-id"><i class="fa fa-edit"></i></button><br> 
 {{-- View button.......................................................--}} 
 <a href="{{url('view-on-hold-order-details/'.$order->id)}}">
-<button class="btn btn-warning border-radius-none" ><i class="fa fa-eye"></i></button>
+<button class="btn btn-warning border-radius-none text-white" ><i class="fa fa-eye"></i></button>
 </a>
 <br>
 {{-- delete//trash button.......................................................--}} 
@@ -84,7 +78,7 @@ data-target="#on-hold-order-modal-id"><i class="fa fa-edit"></i></button><br>
  <button class="btn btn-danger border-radius-none" value="{{$order->id}}"><i class="fa fa-trash"></i>
 </button>
 </a>
-<br>
+
 {{--File button.......................................................--}}
                      <div class="dropdown-menu"> 
                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ><i class="fa fa-file"></i>
