@@ -9,9 +9,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-                            <a href="#">Home</a><span class="mr-2">><span></li>
-                        <li class="breadcrumb-item">Order<span class="mr-2">><span></li>
+                            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
+                        <li class="breadcrumb-item">Order</li>
                         <li class="breadcrumb-item active">Order Details</li>
                     </ol>
                 </div>
@@ -24,29 +23,31 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="card">
-                    <div class="card-header">
-                        <p class="mt-2" id="result">Total Number of Items Selected =
-                        <p>
+                    <div class="card-header bg-white">
+                        @foreach ($orders as $order)
+                        <button type="button" class="btn btn-success update-purchase-status" data-toggle="modal" 
+                        data-target="#po-update-purchase-status-id" value="{{ $order->id }}">
+                        <i class="fa fa-plus-circle"></i> Update Purchase Status</button>
+                        @endforeach
                     </div><!-- /.card-header -->
 
-                    <div class="card-body scrollable">
+                    <div class="card-body">
                         <div class="col-md-12 col-sm-12">
-                            <table class="table table-bordered table-hover data_table  no-footer" role="grid">
+                            <table class="table table-bordered data_table_pending_order no-footer" role="grid">
                                 <thead>
                                     <tr role="row">
-                                        <th class="sorting_disabled" rowspan="1" colspan="1"><input type="checkbox"
-                                                onclick="checkAll(this)"> SL.</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Date</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">SKU</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Product Name</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Image</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Variation</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Quantity</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Circle Price (Unit)</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Selling Price (Unit)</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Status</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">PO Status</th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tools</th>
+                                        <th class="" rowspan="1" colspan="1"><input type="checkbox" onclick="checkAll(this)"> SL.</th>
+                                        <th class="" rowspan="1" colspan="1">Date</th>
+                                        <th class="" rowspan="1" colspan="1">SKU</th>
+                                        <th class="" rowspan="1" colspan="1">Product Name</th>
+                                        <th class="" rowspan="1" colspan="1">Image</th>
+                                        <th class="" rowspan="1" colspan="1">Variation</th>
+                                        <th class="" rowspan="1" colspan="1">Quantity</th>
+                                        <th class="" rowspan="1" colspan="1">Circle Price (Unit)</th>
+                                        <th class="" rowspan="1" colspan="1">Selling Price (Unit)</th>
+                                        <th class="" rowspan="1" colspan="1">Status</th>
+                                        <th class="" rowspan="1" colspan="1">PO Status</th>
+                                        <th class="" rowspan="1" colspan="1">Tools</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,19 +74,22 @@
                                                         class="fa fa-edit"></i>&nbsp;<span
                                                         class="ml-2">Update</span></button>
                                                 {{-- Returned Button --}}
-                                                <button class="btn btn-info btn-sm btn-flat pending-order-returned-btn"
+                                                <button class="btn btn-info btn-sm btn-flat pending-order-returned-btn mt-1"
                                                     value="{{ $order->id }}" data-toggle="modal"
                                                     data-target="#pending-order-returned-id"><i
                                                         class="fa fa-edit"></i><span
                                                         class="ml-2">Returned</span></button>
                                                 {{-- Purchased Button --}}
                                                 <a href="{{ url('purchased-pending-order/' . $order->id) }}"><button
-                                                        class="btn btn-primary btn-flat"><i class="fa fa-edit"></i><span
+                                                        class="btn btn-primary btn-sm btn-flat mt-1"><i class="fa fa-edit"></i><span
                                                             class="ml-2">Purchased</span></button></a>
+                                                            <br>
                                                 {{-- Delete Button --}}
                                                 <button class="btn btn-danger btn-sm btn-flat delete"><i
                                                         class="fa fa-trash"></i><span
                                                         class="ml-2">Delete</span></button>
+                                                <a href="#" target="”_blank”"><button class="btn-info btn-sm btn-flat mt-1">
+                                                    <i class="fa fa-edit"></i> Processed</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -95,6 +99,7 @@
                             <!-- Modals -->
                             @include('layouts.inc.pandingOrder.pending-order-details-modal')
                             @include('layouts.inc.pandingOrder.pending-order-returned-modal')
+                            @include('layouts.inc.pandingOrder.update-purchase-status')
 
                         </div><!-- /.col -->
                     </div><!-- /.card-body -->
@@ -103,3 +108,16 @@
         </div> <!-- /.row -->
     </section><!-- /.content -->
 @endsection
+
+@section('scripts')
+<script>
+ // For Data Table..................
+$('.data_table_pending_order').DataTable({
+    "scrollX": false,
+    "scrollY": true
+  });
+
+ // For Number Input..................
+
+</script>   
+@endsection	

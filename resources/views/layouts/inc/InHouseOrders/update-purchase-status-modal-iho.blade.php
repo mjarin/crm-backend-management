@@ -11,7 +11,7 @@
           <form id="form" class="form-horizontal" action="{{url('inho-update-purchase-status')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="text" name="hidden_input_id_inho" id="hidden_input_id_inho">
+            <input type="hidden" name="hidden_input_id_inho" id="hidden_input_id_inho">
             
             <div class="form-group row mb-5">
               <label for="status" class="col-sm-3 control-label font-weight-bold">Select Status</label>

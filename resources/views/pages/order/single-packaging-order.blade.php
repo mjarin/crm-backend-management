@@ -35,7 +35,7 @@
 
                 <div class="card-body scrollable">
                     <div class="col-md-12 col-sm-12">
-                        <table class="table table-bordered table-hover data_table  no-footer" role="grid">
+                        <table class="table table-bordered data_table_rtp  no-footer" role="grid">
                             <thead>
                                 <tr role="row">
                                     <th class="sorting_disabled" rowspan="1" colspan="1"><input type="checkbox"
@@ -61,7 +61,7 @@
                     <td>{{$order->sku }}</td>
                     <td>{{ $order->product_name }}</td> 
                     <td><img src="{{ asset('images/' . $order->photos) }}" alt="product_img"
-                      style="max-width:100px; max-height=100px;"></td>
+                      style="max-width:70px; max-height=70pximportant;"></td>
                       <td>{{ $order->variation }}</td>
                       <td>{{ $order->quantity }}</td>
                       <td>{{ $order->circle_price }}</td>

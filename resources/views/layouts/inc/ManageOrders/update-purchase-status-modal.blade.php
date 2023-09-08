@@ -13,7 +13,7 @@
           <form id="form" class="form-horizontal" action="{{url('update-purchase-status-manage-order')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="text" name="sops_id" id="sops_id">
+            <input type="hidden" name="sops_id" id="sops_id">
             <br><br>
             <div class="form-group row">
                 <label for="purchase_status" class="col-sm-3 control-label">Select Status</label>

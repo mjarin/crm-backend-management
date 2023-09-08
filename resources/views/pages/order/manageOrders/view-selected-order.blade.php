@@ -9,9 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-                            <a href="#">Home</a>
-                        </li>
+                        <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
                         <li class="breadcrumb-item">Orders</li>
                         <li class="breadcrumb-item active">Orders List</li>
                     </ol>
@@ -25,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-md-12 col-sm-12">
                             <form action="{{ url('submit-order-id-step2') }}" method="GET" enctype="multipart/form-data">
                                 @csrf
@@ -54,12 +52,13 @@
                                     </div><!-- End of col-md-3-->
                                 </div><!-- End of row-->
                             </form>
-                        </div>
-                        <!--End of  col-md-12 -->
+                        </div><!--End of  col-md-12 -->
                     </div><!-- End of row-->
+
+                    
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <table id="" class="table table-bordered table-hover data_table ">
+                            <table id="" class="table table-bordered  data_table ">
                                 <thead>
                                     <tr>
                                         <th style="width:10%">Order Date</th>
@@ -86,7 +85,7 @@
                                             <td>{{ $order->code }}</td>
                                             <td>{{ $order->supplier_name }}</td>
                                             <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->address }}</td>
+                                            <td>{{ $order->shipping_address }}</td>
                                             <td>{{ $order->delivery_status }}</td>
                                             <td>{{ $order->product_name}}</td>
                                             <td>{{ $order->collected_price }}</td>
@@ -95,6 +94,36 @@
                                             <td>{{ $order->updated_by }}</td>
                                             <td>{{ $order->remarks }}</td>
                                             <td>{{-- Toools Started --}}
+                                                {{-- File button....................................................... --}}
+                                                <div class="dropdown-menu">
+                                                    <button class="btn btn-info " type="button"
+                                                        data-toggle="dropdown"><i class="fa fa-file"></i>
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group open">
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat " data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="true">
+                                                        <i class="fa fa-bars"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <li class="ml-3"><a href=""
+                                                                class="text-decoration-none text-dark"
+                                                                target="”_blank”">Seller Invoice</a></li>
+                                                        <li class="ml-3"><a href="#"
+                                                                class="text-decoration-none text-dark"
+                                                                target="”_blank”">Customer Invoice</a></li>
+                                                        <li class="ml-3"><a href="{{url('edit-address-manage-order/'.$order->id)}}"
+                                                                class="text-decoration-none text-dark"
+                                                                target="”_blank”">Update Address</a></li>
+                                                        <li class="ml-3"><a href="{{url('edit-order-manageOrder/'.$order->id)}}"
+                                                                class="text-decoration-none text-dark"
+                                                                target="”_blank”">Update Order</a></li>
+                                                        <li class="ml-3"><a href="{{url('edit-customer-info/'.$order->id)}}"
+                                                                class="text-decoration-none text-dark"
+                                                                target="”_blank”">Update Customer Info</a></li>
+                                                    </div>
+                                                </div><br>
                                                 {{-- Update button....................................................... --}}
                                                 <button type="button"
                                                     class="btn btn-success btn-sm btn-flat btn-edit-update-selected-order"
@@ -102,6 +131,7 @@
                                                     data-target="#edit_update_modal_id"
                                                     style="background:green!important; color:white!important;">
                                                     <i class="fa fa-edit"></i></button>
+                                                    <br>
                                                 {{-- View button....................................................... --}}
                                                 <a href="{{ url('view-single-selected-order/' . $order->id) }}">
                                                     <button class="btn btn-warning btn-sm btn-flat"
@@ -113,36 +143,6 @@
                                                     <button class="btn btn-danger btn-sm btn-flat delete"
                                                         value="{{ $order->id }}"><i class="fa fa-trash"></i>
                                                     </button></a>
-                                                {{-- File button....................................................... --}}
-                                                <div class="dropdown-menu">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                        data-toggle="dropdown"><i class="fa fa-file"></i>
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                </div>
-                                                <div class="btn-group open">
-                                                    <button type="button" class="btn btn-primary" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="true">
-                                                        <i class="fa fa-bars"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <li class="ml-3"><a href=""
-                                                                class="text-decoration-none text-dark"
-                                                                target="”_blank”">Seller Invoice</a></li>
-                                                        <li class="ml-3"><a href=""
-                                                                class="text-decoration-none text-dark"
-                                                                target="”_blank”">Customer Invoice</a></li>
-                                                        <li class="ml-3"><a href=""
-                                                                class="text-decoration-none text-dark"
-                                                                target="”_blank”">Update Address</a></li>
-                                                        <li class="ml-3"><a href=""
-                                                                class="text-decoration-none text-dark"
-                                                                target="”_blank”">Update Order</a></li>
-                                                        <li class="ml-3"><a href=""
-                                                                class="text-decoration-none text-dark"
-                                                                target="”_blank”">Update Customer Info</a></li>
-                                                    </div>
-                                                </div>
                                             </td>{{-- Toools End --}}
                                         </tr>
                                         @endforeach

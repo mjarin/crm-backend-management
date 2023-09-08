@@ -9,8 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-                            <a href="#">Home</a>
+                         <i class="nav-icon fas fa-tachometer-alt mr-2"></i> Home</a>
                         </li>
                         <li class="breadcrumb-item">Orders</li>
                         <li class="breadcrumb-item active">Orders List</li>

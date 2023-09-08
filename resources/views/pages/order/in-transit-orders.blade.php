@@ -25,23 +25,18 @@
           <div class="card">
             <div class="card-header bg-white">
               <button id="export" class="btn btn-info">Export Reports As Excel</button>
-{{-- 
-              @foreach($in_transit_orders as $order) --}}
+              {{-- @foreach($in_transit_orders as $order) --}}
               <button type="button" class="btn btn-success" data-toggle="modal" value="" 
               data-target="#sss"><i class="fa fa-plus-circle"></i> 
               Update Status</button>
               {{-- @endforeach  --}}
-      
-
-              {{-- <button type="button" class="btn btn-success update-status-intro-btn" data-toggle="modal" 
-              data-target="#intro-updateStatus-modal"><i class="fa fa-plus-circle"></i> Update Status</button> --}}
 
               <p class="mt-5" id="result">Total Number of Items Selected =<span>0</span><p>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table id=""  class="table table-bordered table-hover data_table ">
+            <table id=""  class="table table-bordered data_table">
             <thead>
             <tr>
             <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
@@ -70,7 +65,7 @@
                     <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
                     <td>{{$order->customer_phone}}</td> 
-                    <td>{{$order->address}}</td>  
+                    <td>{{$order->shipping_address}}</td>  
                     <td>{{$order->product_name}}</td>
                     <td>{{$order->delivery_status}}</td>
                     <td>{{$order->circle_price}}</td> 
@@ -104,19 +99,17 @@ data-toggle="modal" data-target="#in_transit_order_modal_id">
 <div class="dropdown-menu">
   <li><a href="" target="”_blank”" class="text-dark ml-2">Seller Invoice</a></li>
  <li><a href="" target="”_blank”" class="text-dark ml-2">Customer Invoice</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
+ <li><a href="{{url('edit-in-transit-order-step2/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
  <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details</a></li>
  <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 2</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 3</a></li>   
  </div>{{--End of File button.......................................................--}}
  </div>
  </td>
  </tr> 
- @endforeach{{-- Toools tr End--}}  
-{{-- Modal for update--}}
+ {{-- Modal for update--}}
  @include('layouts.inc.InTransitOrders.in-transit-order-update-modal') 
  @include('layouts.inc.InTransitOrders.update-status-modal-intro') 
+ @endforeach{{-- Toools tr End--}}  
 </div>
 </div>
 </div>

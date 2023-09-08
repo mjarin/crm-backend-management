@@ -2,18 +2,42 @@
 
 namespace App\Http\Controllers\CourierWiseOrders;
 
-use App\Http\Controllers\Controller;
+use Session; 
+use App\Models\Order;
+use App\Models\Courier;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
-use App\Models\Courier;
-use App\Models\Order;
-use Session; 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class SAparibahanController extends Controller
 {
     public function SAparibahanOrders(){
+
         $couriers = Courier::all();
-        $sa_paribahan_orders = Order::where('courier','=','SA Paribahan')->get();
+        // $sa_paribahan_orders = Order::where('courier','=','SA Paribahan')->get();
+        $sa_paribahan_orders=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
+        ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
+        ->where('order.delivery_man','SA Paribahan')
+        ->get(['order.id',
+        'order.date',
+        'order.code',
+        'order.customer_name',
+        'order.customer_phone',
+        'order.delivery_status',
+        'order.collected_price',
+        'order.delivery_man',
+        'order.delivery_date',
+        'order.shipping_address',
+        'order.remarks',
+        'order_details.circle_price',
+        'shop.shop_name',
+        'product.product_name',
+        'supplier.supplier_name'
+        ]);
         return view('pages.courierWiseOrders.SAparibahan.sa-paribahan-orsers',compact('sa_paribahan_orders','couriers'));
 
     }
@@ -46,7 +70,24 @@ class SAparibahanController extends Controller
     }
 
     public function viewSingleSAparibahanOrder($id){
-        $sa_paribahan_order=Order::where('courier','=','SA paribahan')->where('id','=', $id)->get();
+        // $sa_paribahan_order=Order::where('courier','=','SA paribahan')->where('id','=', $id)->get();
+        $sa_paribahan_order=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->where('order.id', '=', $id)
+        ->where('order.delivery_man','=','SA paribahan')
+        ->get(['order.id',
+        'order.date',
+        'order.delivery_status',
+        'order_details.selling_price',
+		'order_details.circle_price',
+		'order_details.variation',
+        'order_details.quantity',
+		'order_details.po_status',
+        'product.sku',
+		'product.photos',
+        'product.product_name',
+        ]);	
         return view('pages.courierWiseOrders.SAparibahan.single-sa-paribahan-order',compact('sa_paribahan_order'));
     }
 
@@ -84,6 +125,23 @@ class SAparibahanController extends Controller
         $update_sa_paribahan_order->update();
         return redirect()->back()->with('status','Order'.$sa_paribahan_order_id. '  Rturned Reason Has been Saved');
       }
+
+
+      
+ public function editPurchaseStatusSAP($id){
+        $order_id = Order::find($id);
+        return response()->json(['status' => 200,'PurchaseStatusSAP' => $order_id]);
+      }
+
+
+      public function updatePurchaseStatusSAP(Request $request){
+        $order_id = $request->input('sa-paribahan-order-id');
+        $update_order = OrderDetails::where('order_id','=',$order_id)->first();
+        $update_order ->po_status = $request->input('sa-paribahan_purchase_status');
+        $update_order->update();
+        return redirect()->back()->with('status','Status Updated Successfully');
+      
+      }      
 
 
 

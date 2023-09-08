@@ -28,6 +28,7 @@
 
   <!-- Main content -->
   <section class="content">
+    <div class="container-fluid">
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
@@ -42,22 +43,22 @@
 
             <div class="card-body scrollable">
               <div class="col-md-12">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered data_table_rtd ">
             <thead>
-            <tr role="row">
-            <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
-            <th style="width:10%">Date</th>
-            <th style="width:5%">SKU</th>
-                 <th style="width:20%">Product Name</th>
-                 <th style="width:8%">Image</th>
-                 <th style="width:10%">Variation</th>
-                 <th style="width:10%">Quantity</th>
-                 <th style="width:10%">Circle Price (Unit)</th>
-                 <th style="width:5%">Selling Price (Unit)</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:8%">PO Status</th>
-                 <th style="width:10%">Tools</th>
-                </tr>
+              <tr role="row">
+                <th class="" rowspan="1" colspan="1"><input type="checkbox" onclick="checkAll(this)"> SL.</th>
+                <th class="" rowspan="1" colspan="1">Date</th>
+                <th class="" rowspan="1" colspan="1">SKU</th>
+                <th class="" rowspan="1" colspan="1">Product Name</th>
+                <th class="" rowspan="1" colspan="1">Image</th>
+                <th class="" rowspan="1" colspan="1">Variation</th>
+                <th class="" rowspan="1" colspan="1">Quantity</th>
+                <th class="" rowspan="1" colspan="1">Circle Price (Unit)</th>
+                <th class="" rowspan="1" colspan="1">Selling Price (Unit)</th>
+                <th class="" rowspan="1" colspan="1">Status</th>
+                <th class="" rowspan="1" colspan="1">PO Status</th>
+                <th class="" rowspan="1" colspan="1">Tools</th>
+            </tr>
                 </thead>
                 <tbody>
                    @foreach ($ready_to_deliver_order as $order)
@@ -66,7 +67,7 @@
                     <td>{{$order->date}}</td> 
                     <td>{{$order->sku}}</td>
                     <td>{{$order->product_name}}</td> 
-                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
+                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img"  style="width=80px; max-width:80px;"></td>
                     <td>{{ $order->variation }}</td>
                     <td>{{ $order->quantity }}</td>
                     <td>{{ $order->circle_price }}</td> 
@@ -82,8 +83,8 @@ data-target="#ready_to_deliver_details_id"><i class="fa fa-edit"></i>&nbsp;&nbsp
 <button class="btn btn-info btn-sm btn-flat return-ready-to-deliver-btn" value="{{$order->id}}" data-toggle="modal" 
 data-target="#ready-to-deliver-order-returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button>
 {{-- Purchased Button --}}
-<a href="{{url('purchased-ready-to-deliver-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-flat"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a>
-<button class="btn btn-danger btn-sm btn-flat delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="{{url('purchased-ready-to-deliver-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-sm btn-flat"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a>
+<button class="btn btn-danger btn-sm btn-flat delete mt-1"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
 <a href="#" target="”_blank”"><button class="btn-info btn-sm btn-flat"><i class="fa fa-edit"></i> Processed</button></a>
                     </td>
                    </tr>                    
@@ -97,14 +98,11 @@ data-target="#ready-to-deliver-order-returned_id"><i class="fa fa-edit"></i>&nbs
             @include('layouts.inc.readyToDeliverOrder.rtd-update-purchased-status-modal') 
             
 
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        {{-- </div> --}}
+            </div><!-- /.card-body -->
+          </div><!-- /.card -->
         <!-- /.col -->
+      </div><!-- /.row -->
       </div>
-      <!-- /.row -->
   </section>
   <!-- /.content -->    
 @endsection

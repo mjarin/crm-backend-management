@@ -31,9 +31,6 @@ class DeliveryReportController extends Controller
 
         return view('pages.DeliveryReports.view-searched-report',compact('records','from_date','to_date' ));
 
-
-
-
     }
 
 

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 use Session; 
 use App\Models\Order;
 use App\Models\Courier;
+use App\Models\DeliveryMan;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class InHouseOrdersController extends Controller
 {
@@ -15,8 +16,6 @@ class InHouseOrdersController extends Controller
         // $orders=Order::where('courier','inhouse-sale')->where('delivery_man','inhouse-sale')->get();
         $orders=DB::table('orders as order')
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
-        ->where('order.courier','inhouse-sale')
         ->where('order.delivery_man','inhouse-sale')
         ->get(['order.id',
         'order.date',
@@ -29,7 +28,7 @@ class InHouseOrdersController extends Controller
         'order.delivery_date',
         'order_details.circle_price',
         'order_details.po_status',
-        'address.address'
+        'order.shipping_address'
         ]);
         return view('pages.order.InHouseOrders.in-house-orders',compact('orders','couriers'));
     }
@@ -87,10 +86,8 @@ class InHouseOrdersController extends Controller
     public function editInHouseOrderDetails($id){
 
         $in_house_order = Order::find($id);
-        $in_house_order_details = OrderDetails::where('order_id','=', $in_house_order->id )->where('courier','inhouse-sale')
-        ->where('delivery_man','inhouse-sale')->first();
-    
-        return \response()->json(['status' => 200,'InHouseOrderDetails' => $in_house_order_details]); 
+        $in_house_order_details = OrderDetails::where('order_id','=', $id )->first();
+        return response()->json(['status' => 200,'InHouseOrderDetails' => $in_house_order_details]); 
 
     }
 
@@ -98,6 +95,19 @@ class InHouseOrdersController extends Controller
 
         $returned_order = Order::find($id);
         return response()->json(['status' => 200,'inHouseReturnedOrder' => $returned_order]); 
+
+    }
+
+    public function updateInHouseOrderDetails(Request $request){
+
+        $order_id = $request->input('in_house_details_id'); 
+        $update_in_house_order =OrderDetails::where('order_id','=', $order_id)->first();
+        $update_in_house_order->circle_price = $request->input('in_house_circle_price');
+        $update_in_house_order->selling_price = $request->input('in_house_selling_price');
+        $update_in_house_order->quantity = $request->input('in_house_quantity');
+        $update_in_house_order->variation = $request->input('in_house_variation');
+        $update_in_house_order->update();
+        return redirect()->back()->with('status','Order ' .$order_id. '  Deatails Have been Updated');
 
     }
 
@@ -127,6 +137,31 @@ class InHouseOrdersController extends Controller
         return redirect()->back()->with('status','Status Updated Successfully');
     
       }
+
+      public function editInHouseOrderStep2($id){
+
+        $delivery_man = DeliveryMan::all();
+        $order =Order::find($id);
+        return view('pages.order.InHouseOrders.update-in-house-order-step2',compact('order','delivery_man'));
+
+      }
+
+      public function updateInHouseOrderStep2(Request $request){
+
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order->id= $request->input('order_id');
+        $order->collected_price=$request->input('collected_amount');
+        $order->remarks=$request->input('circle_remarks');
+        $order->delivery_charge = $request->input('total_delivery_charge');
+        $order->delivery_man=$request->input('delivery_man');
+        $order->delivery_date=$request->input('delivery_date');
+        $order->delivery_status=$request->input('delivery_status');
+        $order->payment_status =$request->input('payment_status');
+        $order->update();
+        return redirect()->back()->with('success','Order Updated Successfully'); 
+    
+    }
 
 
 

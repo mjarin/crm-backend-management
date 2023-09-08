@@ -11,7 +11,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
+            <li class="breadcrumb-item">Home</li>
             <li class="breadcrumb-item active"> Orders</li>
           </ol>
         </div>
@@ -24,13 +24,13 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected =<span>0</span><p>
+            <div class="card-header bg-white">
+              <button id="export" class="btn btn-info">Export Reports As Excel</button>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table id=""  class="table table-bordered table-hover data_table ">
+            <table id=""  class="table table-bordered data_table ">
             <thead>
             <tr>
             <th style="width:15%">Order Date</th>
@@ -53,20 +53,15 @@
                    <tr> 
                     <td>{{$order->date}}</td> 
                     <td>{{$order->code}}</td>
-                    <td>Source N Supply</td> 
+                    <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
                     <td>{{$order->shipping_address}}</td> 
-                    <td>JKT105 - 1( L)</td>
-                    <td></td>
-                    <td>
-                      {{-- {{$order->orderDetails->circle_price}} --}}
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
-                    <td>{{$order->collected_price}}</td> 
+                    <td>{{$order->product_name}}</td>
+                    <td>{{$order->delivery_status}}</td>
+                    <td>{{$order->circle_price }}</td>
+                    <td>{{$order->collected_price}}</td>
                     <td>{{$order->delivery_man}}</td>
-                    <td>{{$order->delivery_date}}</td> 
+                    <td>{{$order->delivery_date}}</td>
                     <td>{{$order->remarks}}</td>
                     {{-- Toools td starts--}} 
                     <td>
@@ -84,21 +79,20 @@ data-toggle="modal" data-target="#no_status_order_modal_id">
 </button></a>
 {{--File button.......................................................--}}
 <div class="dropdown-menu"> 
-<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-file"></i>
+<button class="btn btn-info" type="button" data-toggle="dropdown"><i class="fa fa-file"></i>
 <span class="caret"></span></button>
 </div>
 <div class="btn-group">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<button type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <i class="fa fa-file"></i>
 </button>
 <div class="dropdown-menu">
   <li><a href="" target="”_blank”" class="text-dark ml-2">Seller Invoice</a></li>
  <li><a href="" target="”_blank”" class="text-dark ml-2">Customer Invoice</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
+ <li><a href="{{url('edit-address-no-status/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
+ <li><a href="{{url('edit-order-no-status/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
  <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details</a></li>
  <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 2</a></li>
- <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 3</a></li>   
  </div>{{--End of File button.......................................................--}}
  </div>
  </td>

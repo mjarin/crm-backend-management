@@ -23,11 +23,17 @@ class ManageCourierController extends Controller
         return redirect()->back()->with('success','New Courier Added Successfully');
     }
 
-    public function deleteCourier($id){ 
+    public function editCourier($id){ 
 
         $courier = Courier::find($id);
+        return response()->json(['status' => 200,'editCourier' => $courier]); 
+
+    }
+
+    public function deleteCourier(Request $request){
+        $courier_id = $request->input('courier_id');
+        $courier = Courier::find($courier_id);
         $courier->delete();
         return redirect()->back()->with('success','Courier Deleted successfully');
-
     }
 }

@@ -10,7 +10,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
                             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-                            <a href="#">Home</a>
+                            Home
                         </li>
                         <li class="breadcrumb-item active">Delivered Orders</li>
                     </ol>
@@ -30,7 +30,7 @@
                     <!-- /.card-header -->
 
                     <div class="card-body scrollable">
-                        <table id="" class="table table-bordered table-hover data_table ">
+                        <table id="" class="table table-bordered data_table_delivered">
                             <thead>
                                 <tr>
                                     <th style="width:10%">Order Date</th>
@@ -52,7 +52,7 @@
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->shop_name}}</td>
                                         <td>{{ $order->customer_name }}</td>
-                                        <td>{{ $order->address }}</td>
+                                        <td>{{ $order->shipping_address }}</td>
                                         <td>{{ $order->delivery_status }}</td>
                                         <td><b class="text-danger">Not Received</b></td>
                                         <td>{{ $order->collected_price }}</td>
@@ -76,3 +76,9 @@
     </section>
     <!-- /.content -->
 @endsection
+
+{{-- @section('scripts')
+<script>
+
+</script>   
+@endsection --}}

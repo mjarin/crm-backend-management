@@ -5,6 +5,7 @@ use Session;
 use App\Models\Order;
 use App\Models\Courier;
 use App\Models\OrderDetails;
+use App\Models\DeliveryMan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +17,7 @@ class UnderReviewOrdersController extends Controller
         $orders=DB::table('orders as order')
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
         ->join('products as product', 'order_details.product_id', '=', 'product.id')
-        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+        ->join('shops as shop', 'order.seller_id', '=', 'shop.id')
         ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
         ->where('order.delivery_status', '=', 'under review')
         ->get(['order.id',
@@ -31,7 +31,7 @@ class UnderReviewOrdersController extends Controller
         'order.remarks',
         'order_details.circle_price',
         'shop.shop_name',
-        'address.address',
+        'order.shipping_address',
         'product.product_name',
         'supplier.supplier_name'
         ]);
@@ -141,7 +141,28 @@ public function editUnderReviewOrderReturn($id){
   }
 
 
+  public function editUnderReviewOrderStep2($id){
+    $delivery_man = DeliveryMan::all();
+    $order =Order::find($id);
+    return view('pages.order.UnderReviewOrders.update-under-review-order-step2',compact('order','delivery_man'));
+}
 
+public function updateUnderReviewOrderStep2(Request $request){
+
+    $id =$request->input('order_id');
+    $order = Order::find($id);
+    $order->id=$request->input('order_id');
+    $order->collected_price=$request->input('collected_amount');
+    $order->remarks=$request->input('circle_remarks');
+    $order->delivery_charge = $request->input('total_delivery_charge');
+    $order->delivery_man=$request->input('delivery_man');
+    $order->delivery_date=$request->input('delivery_date');
+    $order->delivery_status=$request->input('delivery_status');
+    $order->payment_status =$request->input('payment_status');
+    $order->update();
+    return redirect()->back()->with('success','Order Updated Successfully'); 
+
+}
 
 
 // End of UnderReviewOrdersController class.........................

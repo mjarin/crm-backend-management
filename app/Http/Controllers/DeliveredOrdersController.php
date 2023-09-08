@@ -18,7 +18,6 @@ class DeliveredOrdersController extends Controller
         $delivered_orders=DB::table('orders as order')
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
         ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
         ->where('order.delivery_status', '=', 'delivered')
         ->get(['order.id',
         'order.date',
@@ -31,7 +30,7 @@ class DeliveredOrdersController extends Controller
         'order.remarks',
         'order_details.circle_price',
         'shop.shop_name',
-        'address.address'
+        'order.shipping_address'
         ]);
 
         return view('pages.order.delivered-orders',compact('delivered_orders','couriers'));

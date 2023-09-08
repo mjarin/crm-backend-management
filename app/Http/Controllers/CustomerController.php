@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
    public function viewCustomersData(){
    
-      $order_table_data =Address::all();
+      $order_table_data =Order::all();
       $cities =City::all();
     return view('pages.CustomerData.view-customers-data',compact('order_table_data','cities'));
    }

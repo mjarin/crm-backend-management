@@ -10,10 +10,11 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
-            <li class="breadcrumb-item active"> Orders</li>
-          </ol>
+                <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home
+            </li>
+            <li class="breadcrumb-item">Delivery</li>
+            <li class="breadcrumb-item active">Reports</li>
+        </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -24,8 +25,8 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected =<span>0</span><p>
+            <div class="card-header bg-white">
+              <button id="export" class="btn btn-info">Export Reports As Excel</button>
             </div>
             <!-- /.card-header -->
 
@@ -52,17 +53,12 @@
                    <tr> 
                     <td>{{$order->date}}</td> 
                     <td>{{$order->code}}</td>
-                    <td>Circle Warehouse</td> 
+                    <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td>
                     <td>{{$order->customer_phone}}</td>
                     <td>{{$order->shipping_address}}</td>
                     <td>{{$order->delivery_status}}</td>
-                    <td>
-                      {{-- {{$order->orderDetails->circle_price}} --}}
-                      @foreach($order->orderDetails as $orderdetails)
-                         {{ $orderdetails->circle_price }}
-                      @endforeach 
-                    </td> 
+                    <td>{{$order->circle_price}}</td>
                     <td>{{$order->collected_price}}</td> 
                     <td>{{$order->delivery_man}}</td>
                     <td>{{$order->delivery_date}}</td> 
@@ -103,7 +99,7 @@ data-toggle="modal" data-target="#janani_order_modal_id">
  </tr> 
  @endforeach{{-- Toools tr End--}}  
 {{-- Modal for update--}}
- @include('layouts.inc.CourierWiseOrders.janani.sundarban-orders-update-modal') 
+ @include('layouts.inc.CourierWiseOrders.janani.janani-orders-update-modal') 
 </div>
 </div>
 </div>

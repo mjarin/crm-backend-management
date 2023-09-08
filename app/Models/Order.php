@@ -66,9 +66,15 @@ class Order extends Model
         return $this->hasMany(OrderDetails::class);
     }
 
-    public function products(){
+   public function advanceSheetInfo(){
 
-         return $this->hasManyThrough(Product::class, OrderDetails::class);
+      return $this->hasMany(AdvanceSheet::class);
+    }
+
+
+ public function products(){
+
+     return $this->hasManyThrough(Product::class, OrderDetails::class);
         
     }
 }

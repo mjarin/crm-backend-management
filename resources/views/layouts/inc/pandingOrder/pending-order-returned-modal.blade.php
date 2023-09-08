@@ -1,5 +1,5 @@
 <div class="modal fade" id="pending-order-returned-id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+    <div class="modal-dialog" style="max-width: 650px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title font-weight-bold"></h5> 

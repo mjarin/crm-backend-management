@@ -23,15 +23,13 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
-            </div>
-            <!-- /.card-header -->
+            <div class="card-header bg-white">
+              <button id="export" class="btn btn-info">Export Reports As Excel</button>
+            </div><!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered data_table_rtp">
             <thead>
             <tr>
             <th style="width:10%">Order Date</th>
@@ -55,7 +53,7 @@
                     <td>{{$order->code}}</td>
                     <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->address}}</td> 
+                    <td>{{$order->shipping_address}}</td> 
                     <td>{{$order->product_name}}</td>
                     <td>{{$order->delivery_status}}</td>
                     <td>{{$order->circle_price}}</td> 
@@ -67,6 +65,7 @@
  {{-- Update button.......................................................--}}                      
 <button type="button" class="btn btn-success btn-sm btn-flat editButton-readyToPackagingOrder" value="{{$order->id}}" 
  data-toggle="modal" data-target="#ReadyToPackagingOrder_id"><i class="fa fa-edit"></i></button>
+ <br>
  {{-- View button.......................................................--}}   
 <a href="{{url('view-single-packaging-order/'.$order->id)}}">
 <button class="btn btn-warning btn-sm btn-flat"><i class="fa fa-eye"></i></button></a>
@@ -75,21 +74,19 @@
 <a href="#"><button class="btn btn-danger btn-sm btn-flat delete" data-sid="67452"><i class="fa fa-trash"></i></button></a>
 {{--File button.......................................................--}}
 <div class="dropdown-menu"> 
-<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-file"></i>
+<button class="btn btn-primary btn-sm btn-flat" type="button" data-toggle="dropdown"><i class="fa fa-file"></i>
 <span class="caret"></span></button>
 </div>
+<br>
 <div class="btn-group">
-<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<button type="button" class="btn btn-info btn-sm btn-flat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 <i class="fa fa-file"></i>
 </button>
 <div class="dropdown-menu">
  <li><a href="" target="”_blank”" class="text-dark ml-2">Seller Invoice</a></li>
 <li><a href="" target="”_blank”" class="text-dark ml-2">Customer Invoice</a></li>
-<li><a href="#" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
-<li><a href="#" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
-<li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details</a></li>
-<li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 2</a></li>
-<li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 3</a></li>   
+<li><a href="{{url('edit-packaging-order/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
+ 
 </div>
 {{--End of File button.......................................................--}}
 </div>

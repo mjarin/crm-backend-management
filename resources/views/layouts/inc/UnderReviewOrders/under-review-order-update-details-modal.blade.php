@@ -1,5 +1,5 @@
 <div class="modal fade" id="under-review-order-deatail-btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+    <div class="modal-dialog" style="max-width: 700px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title font-weight-bold"></h5> 
@@ -14,29 +14,29 @@
             <input type="hidden" name="under_review_order_details_id" id="under_review_order_details_id" >
           
                 <div class="form-group row">
-                  <label for="" class="col-sm-3 col-form-label">Circle Price (Unit)</label>
-                  <div class="col-sm-9">
+                  <label for="" class="col-sm-4 col-form-label">Circle Price (Unit)</label>
+                  <div class="col-sm-8">
                     <input type="text"  class="form-control" name="under_review_order_circle_price" id="under_review_order_circle_price" >
                   </div>
                 </div>
                 <br>
                 <div class="form-group row">
-                  <label for="" class="col-sm-3 col-form-label">Selling Price (Unit)</label>
-                  <div class="col-sm-9">
+                  <label for="" class="col-sm-4 col-form-label">Selling Price (Unit)</label>
+                  <div class="col-sm-8">
                     <input type="text" class="form-control" name="under_review_order_selling_price" id="under_review_order_selling_price">
                   </div>
                 </div>
                 <br>
                 <div class="form-group row">
-                  <label for="under_review_order_quantity" class="col-sm-3 col-form-label">Quantity</label>
-                  <div class="col-sm-9">
+                  <label for="under_review_order_quantity" class="col-sm-4 col-form-label">Quantity</label>
+                  <div class="col-sm-8">
                     <input type="number" class="form-control" id="under_review_order_quantity" name="under_review_order_quantity">
                   </div>
                 </div>
             
                 <div class="form-group row">
-                  <label for="" class="col-sm-3 col-form-label">Variation</label>
-                  <div class="col-sm-9">
+                  <label for="" class="col-sm-4 col-form-label">Variation</label>
+                  <div class="col-sm-8">
                     <input type="text" class="form-control" name="under_review_order_variation" id="under_review_order_variation">
                   </div>
                 </div>

@@ -19,8 +19,7 @@ public function readyForPackaging() {
     $packaging_orders=DB::table('orders as order')
     ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
     ->join('products as product', 'order_details.product_id', '=', 'product.id')
-    ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-    ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+    ->join('shops as shop', 'order.seller_id', '=', 'shop.id')
     ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
     ->where('order.delivery_status', '=', 'ready for packaging')
     ->get(['order.id',
@@ -28,15 +27,15 @@ public function readyForPackaging() {
     'order.code',
     'order.customer_name',
     'order.delivery_status',
+    'order.shipping_address',
     'order.collected_price',
     'order.delivery_man',
     'order.delivery_date',
     'order.remarks',
     'order_details.circle_price',
-    'shop.shop_name',
-    'address.address',
     'product.product_name',
-    'supplier.supplier_name'
+    'supplier.supplier_name',
+    'shop.shop_name'
     ]);
 
     return view('pages.order.ready-for-packaging',compact('packaging_orders','couriers'));
@@ -109,7 +108,7 @@ public function readyForPackaging() {
 
 
 public function updatePackagingOrderDetails(Request $request){
-  $packaging_order_id = $request->input('packaging_order_details_id'); 
+  $packaging_order_id = $request->input('packaging_order_details_name'); 
   $update_packaging_order =OrderDetails::where('order_id', $packaging_order_id)->where('delivery_status','ready for packaging')->first();
   $update_packaging_order->circle_price = $request->input('packaging_circle_price');
   $update_packaging_order->selling_price = $request->input('packaging_selling_price');
@@ -151,9 +150,35 @@ public function editPurchasedStatus($id){
         $update_order = OrderDetails::where('order_id','=',$order_id)->first();
         $update_order->po_status= $request->input('packaging_order_purchase_status');
         $update_order->update();
-        return redirect()->back()->with('status','Order'.$order_id. ' Purchase Status Has been Updated');
+        return redirect()->back()->with('status',' Purchase Status Updated');
 
     }
+
+    public function editPackagingOrderStep2($id){
+      $delivery_man = Courier::all();
+      $order =Order::find($id);
+      return view('pages.order.ReadyForPackaging.update-packaging-order-step2',compact('order','delivery_man'));
+  }
+  
+  public function updatePackagingOrderStep2(Request $request){
+  
+      $id =$request->input('order_id');
+      $order = Order::find($id);
+      $order->id=$request->input('order_id');
+      $order->collected_price=$request->input('collected_amount');
+      $order->remarks=$request->input('circle_remarks');
+      $order->delivery_charge = $request->input('total_delivery_charge');
+      $order->delivery_man=$request->input('delivery_man');
+      $order->delivery_date=$request->input('delivery_date');
+      $order->delivery_status=$request->input('delivery_status');
+      $order->payment_status =$request->input('payment_status');
+      $order->update();
+      return redirect()->back()->with('success','Order Updated Successfully'); 
+  
+  }
+  
+
+    
 
 // End of class...............................................
 }

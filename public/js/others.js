@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function($){
   loadProduct();
   
   
@@ -54,11 +54,7 @@ $(document).ready(function(){
   // });
 
 
-  $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+
 
   // STOCk Alert............................................
 
@@ -66,6 +62,13 @@ $(document).ready(function(){
     var product_id =$(this).val();
 
     // alert(product_id)
+
+
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
   
     $.ajax({
         method: "GET",
@@ -97,6 +100,38 @@ $(document).ready(function(){
       });
   }
 
+  // seller advance payment.............................................................................................
+
+  // $(document).on('click','.seller-advance-payment',function () {
+  //   var product_id =$(this).val();
+
+  //   // alert(product_id)
+
+
+  //   $.ajaxSetup({
+  //     headers: {
+  //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     }
+  //   });
+  
+  //   $.ajax({
+  //       method: "GET",
+  //       url: "/edit-product-stock/"+ product_id,  
+  //       success: function (response) {
+  //         console.log(response);
+  //         $('#product_id').val(response.productInfo.id); 
+  //         $('#product_name').val(response.productInfo.product_name);  
+  //         $('#product_variant').val(response.productInfo.variations);
+  //         $('#product_current_stock').val(response.productInfo.current_stock); 
+ 
+  //       }
+  //   });
+  // });
+
+
+
+
+// End of document
 });
 
 

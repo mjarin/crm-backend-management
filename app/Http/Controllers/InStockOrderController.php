@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Session; 
 use App\Models\Order;
 use App\Models\Courier;
+use App\Models\DeliveryMan;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,6 @@ public function inStockOrders(){
     ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
     ->join('products as product', 'order_details.product_id', '=', 'product.id')
     ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-    ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
     ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
     ->where('product.current_stock', '>=', 'order_details.quantity')
     ->get(['order.id',
@@ -30,11 +30,11 @@ public function inStockOrders(){
     'order.collected_price',
     'order.delivery_man',
     'order.delivery_date',
+    'order.shipping_address',
     'order.remarks',
     'order_details.circle_price',
     'order_details.po_status',
     'shop.shop_name',
-    'address.address',
     'product.product_name',
     'supplier.supplier_name'
     ]);
@@ -136,6 +136,49 @@ public function inStockOrders(){
         $update_order->update();
         return redirect()->back()->with('status','Updated Successfully');
     
+      }
+
+      public function editInStockOrderAddress($id){
+        $order =Order::find($id);
+        return view('pages.order.InStockOrders.update-in-stock-order-address',compact('order'));
+      }
+
+      public function updateInStockOrderAddress(Request $request){
+
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order-> customer_name=$request->input('customer_name');
+        $order-> shipping_address=$request->input('customer_address');
+        $order-> customer_phone=$request->input('customer_phone');
+        $order-> order_note=$request->input('order_note');
+        $order-> customer_charge=$request->input('customer_charge');
+        $order->advance_payment=$request->input('advance_payment');
+        $order->update();
+        return redirect()->back()->with('success','Address Updated Successfully');
+
+      }
+
+      public function editStockOrderStep2($id){
+        $delivery_man = DeliveryMan::all();
+        $order =Order::find($id);
+        return view('pages.order.InStockOrders.update-in-stock-order-step2',compact('order','delivery_man'));
+      }
+
+      public function updateStockOrderStep2(Request $request){
+
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order->id=$request->input('order_id');
+        $order->collected_price=$request->input('collected_amount');
+        $order->remarks=$request->input('circle_remarks');
+        $order->delivery_charge = $request->input('total_delivery_charge');
+        $order->delivery_man=$request->input('delivery_man');
+        $order->delivery_date=$request->input('delivery_date');
+        $order->delivery_status=$request->input('delivery_status');
+        $order->payment_status =$request->input('payment_status');
+        $order->update();
+        return redirect()->back()->with('success','Order Updated Successfully');
+
       }
 
 

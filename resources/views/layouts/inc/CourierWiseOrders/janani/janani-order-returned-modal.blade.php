@@ -12,7 +12,7 @@
           <form id="form" class="form-horizontal" action="{{url('update-janani-order-returned')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="text" name="janani_returned_order_id" id="janani_returned_order_id">
+            <input type="hidden" name="janani_returned_order_id" id="janani_returned_order_id">
             <br><br>
            <div class="form-group row">
                 <label for="refund" class="col-sm-3 control-label">Return Reason</label>

@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers\CourierWiseOrders;
 
-use App\Http\Controllers\Controller;
+use Session; 
+use App\Models\Order;
+use App\Models\Courier;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
-use App\Models\Courier;
-use App\Models\Order;
-use Session; 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class JananiController extends Controller
 {
 
-
     public function JananiCourierOrders(){
     $couriers = Courier::all();
-    $janani_orders = Order::where('courier','=','Janani')->get();
+    // $janani_orders = Order::where('courier','=','Janani')->get();
+    $janani_orders=DB::table('orders as order')
+    ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+    ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
+    ->where('order.delivery_man','Janani')
+    ->get(['order.id',
+    'order.date',
+    'order.code',
+    'order.payment_status',
+    'order.customer_name',
+    'order.customer_phone',
+    'order.delivery_status',
+    'order.collected_price',
+    'order.shipping_address',
+    'order.delivery_man',
+    'order.delivery_date',
+    'order_details.circle_price',
+    'order_details.po_status',
+    'shop.shop_name'
+    ]);
+
     return view('pages.courierWiseOrders.janani.janani-courier-orsers',compact('janani_orders','couriers'));
     }
 
@@ -50,7 +70,25 @@ class JananiController extends Controller
 
       public function viewSingleJananiCourierOrder($id){
           
-        $janani_order=Order::where('courier','=','Janani')->where('id','=', $id)->get();
+        // $janani_order=Order::where('courier','=','Janani')->where('id','=', $id)->get();
+        $janani_order=DB::table('orders as order')
+        ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
+        ->join('products as product', 'order_details.product_id', '=', 'product.id')
+        ->where('order.id', '=', $id)
+        ->where('order.delivery_man','=','Janani')
+        ->get(['order.id',
+        'order.date',
+        'order.delivery_status',
+        'order_details.selling_price',
+		    'order_details.circle_price',
+		    'order_details.variation',
+        'order_details.quantity',
+		    'order_details.po_status',
+        'product.sku',
+		    'product.photos',
+        'product.product_name',
+        ]);	
+
         return view('pages.courierWiseOrders.janani.single-janani-courier-order',compact('janani_order'));
       }
 
@@ -89,7 +127,19 @@ class JananiController extends Controller
       }
 
 
+        public function editPurchaseStatusJanani($id){
+          $order_id = Order::find($id);
+          return response()->json(['status' => 200,'jananiPurchaseStatus' => $order_id]);
+        }
 
+      public function updatePurchseStatusJanani(Request $request){
+        $order_id = $request->input('janani-order-id');
+        $update_order = OrderDetails::where('order_id','=',$order_id)->first();
+        $update_order ->po_status = $request->input('janani_purchase_status');
+        $update_order->update();
+        return redirect()->back()->with('status','Status Updated Successfully');
+
+    }
 
 
 

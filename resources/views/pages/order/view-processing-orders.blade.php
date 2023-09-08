@@ -10,9 +10,8 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a><span class="mr-2">><span></li>
-            <li class="breadcrumb-item">Order<span class="mr-2">><span></li>
+            <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
+            <li class="breadcrumb-item">Order</li>
             <li class="breadcrumb-item active">Processing Orders</li>
           </ol>
         </div>
@@ -27,12 +26,12 @@
         {{-- <div class="col-md-12"> --}}
           <div class="card">
             <div class="card-header bg-white">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
+              <button id="export" class="btn btn-info">Export Reports As Excel</button>
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered  data_table">
             <thead>
               <tr role="row">
                 <th style="width: 35.8681px;" class="sorting_disabled" rowspan="1" colspan="1">Order Date</th>
@@ -59,15 +58,14 @@
                     <td>{{$order->code}}</td>
                     <td>{{$order->shop_name}}</td>
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->address}}</td> 
+                    <td>{{$order->shipping_address}}</td> 
                     <td>{{$order->product_name}}</td>
-                    <td>{{$order->supplier_name}}</td>
                     <td>{{$order->delivery_status}}</td>
-                    <td><span class="text-danger font-weight-bold">High</span></td> 
-                    <td>{{$order->circle_price}}</td> 
+                    <td><span class="text-danger font-weight-bold">High</span></td>
+                    <td>{{$order->circle_price}}</td>
                     <td>{{$order->collected_price}}</td> 
                     <td>{{$order->delivery_man}}</td>
-                    <td>{{$order->delivery_date}}</td>
+                    <td>{{$order->delivery_date}}</td> 
                     <td>{{$order->po_status}}</td> 
                     <td>{{$order->remarks}}</td>
                     <td>{{-- Toools td starts--}} 
@@ -90,18 +88,17 @@
                        <span class="caret"></span></button>
                        </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                          <i class="fa fa-file"></i>
                         </button>
                         <div class="dropdown-menu">
                            
                            <li><a href="" target="”_blank”" class="text-dark ml-3">Seller Invoice</a></li>
                           <li><a href="" target="”_blank”"  class="text-dark ml-3">Customer Invoice</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-3">Update Address</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-3">Update Order</a></li>
+                          <li><a href="{{url('edit-address-processing/'.$order->id)}}" target="”_blank”" class="text-dark ml-3">Update Address</a></li>
+                          <li><a href="{{url('edit-order-processing/'.$order->id)}}" target="”_blank”" class="text-dark ml-3">Update Order</a></li>
                           <li><a href="#" target="”_blank”" class="text-dark ml-3">Add Details</a></li>
                           <li><a href="#" target="”_blank”" class="text-dark ml-3">Add Details 2</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-3">Add Details 3</a></li>
                           
                        </div>
                       </div>
@@ -143,15 +140,14 @@
   </section>
   <!-- /.content -->
 
-{{--   
+  
 <script type="text/javascript">
-  $(function(){
-
-   $('#datepicker').datepicker();
-
+  $('.data_table_processing').DataTable({
+    "scrollX": true,
+    "scrollY": false
   });
 
-</script> --}}
+</script>
   
 @endsection
 

@@ -1,5 +1,5 @@
 <div class="modal fade" id="edit_update_modal_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+    <div class="modal-dialog" style="max-width: 700px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title font-weight-bold">Order Code : <span id="selectedOrder_span_id"></span></h5>

@@ -49,7 +49,7 @@
                 <div class="form-group row">
                   <label for="position" class="col-sm-4 control-label">Courier </label>
                   <div class="col-sm-8">
-                              <select class="form-control" name="sa_paribahan_courier" id="sa_paribahan_courier" selected>
+                              <select class="form-control" name="sa_paribahan_courier" id="sa_paribahan_courier">
                                  @foreach ($couriers as $courier)
                                  <option value="{{$courier->name}}">{{$courier->name}}</option>
                                  @endforeach					       

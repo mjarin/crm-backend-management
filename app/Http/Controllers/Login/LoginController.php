@@ -32,7 +32,7 @@ class LoginController extends Controller
             if(Hash::check($request->password,$user->password))
             {
                 $request->session()->put('LoggedUserId',$user->id);
-                return redirect('dashboard');
+                return redirect('/dashboard');
             }else{
                 return back()->with('fail','Incorrect Password');
             }
@@ -46,7 +46,7 @@ class LoginController extends Controller
             $data =User::where('id', Session::get('LoggedUserId'))->first();
         }
 
-        return view('layouts.master',compact('data')); 
+        return view('welcome',compact('data')); 
         
     }
 

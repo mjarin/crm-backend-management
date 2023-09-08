@@ -32,9 +32,9 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="card-body scrollable">
-                                <table class="table table-bordered table-hover data_table " style="border:0!important">
+                                <table class="table table-bordered" style="border:0!important">
                                 <thead>
-                                <tr role="row"  style="border-botttom: none;!important">
+                                <tr role="row">
                                     <th style="width:2%">Customer Name</th>
                                      <th style="width:2%">Address</th>
                                      <th style="width:2%">Phone</th>
@@ -43,9 +43,9 @@
                                     <tbody>
                                        @foreach ($order_table_data as $data)
                                        <tr> 
-                                        <td style="border-botttom: none;!important">{{$data->customer_name}}</td>
-                                        <td>{{$data->address}}</td>  
-                                        <td>{{$data->phone}}</td>  
+                                        <td>{{$data->customer_name}}</td>
+                                        <td>{{$data->shipping_address}}</td>  
+                                        <td>{{$data->customer_phone}}</td>  
                                        </tr>                    
                                     @endforeach 
                                     </tbody> 

@@ -1,5 +1,5 @@
 <div class="modal fade" id="no_status_order_modal_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+    <div class="modal-dialog" style="max-width: 700px!important;" role="document">
       <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title font-weight-bold">Order Code : <span id="noStatusOrder_span_id"></span></h5>
@@ -89,7 +89,8 @@
                       <label for="edit_delivery" class="col-sm-4 control-label">Delivery Status</label>
                          <div class="col-sm-8"> 
                              <select class="form-control" name="noStatus_delivery_status" id="noStatus_delivery_status">
-                              <option selected="" id="" value="pending">Pending</option>
+                              <option selected="" id="" value=""></option>
+                              <option  id="" value="pending">Pending</option>
                               <option value="processing">Processing</option>
                               <option value="ready for deliver">Ready For packaging</option>
                               <option value="ready to deliver">Ready to Deliver</option>

@@ -39,15 +39,9 @@
 
                         <br />
                         <button id="export" class="btn btn-info">Export Reports As Excel</button>
-                        {{-- <button type="button" class="btn btn-success"
-                          data-toggle="modal" data-target="#rtd-update-stasus-id" id="show-rtd-modal">
-                          <i class="fa fa-plus-circle mr-2"></i></button> --}}
-
-                          {{-- @foreach ($ready_to_deliver_order as $order) --}}
                           <button type="button" class="btn btn-success rdt-edit-btn" 
                           value="" data-toggle="modal" data-target="#rtd-update-stasus-id"><i class="fa fa-plus-circle mr-2"></i> 
                           Update Status</button>
-                          {{-- @endforeach  --}}
                             
                         <br /><br />
                         <p id="result">Total Number of Items Selected = 0</p>
@@ -55,7 +49,7 @@
                     </div><!-- /.card-header -->
 
                     <div class="card-body scrollable">
-                        <table id="" class="table table-bordered table-hover data_table ">
+                        <table id="" class="table table-bordered data_table ">
                             <thead>
                                 <tr>
                                     <th style="width:3%"><input type="checkbox" onclick="checkAll(this)">SL.</th>
@@ -83,7 +77,7 @@
                                         <td>{{ $order->code }}</td>
                                         <td>{{ $order->shop_name }}</td>
                                         <td>{{ $order->customer_name }}</td>
-                                        <td>{{ $order->address }}</td>
+                                        <td>{{ $order->shipping_address }}</td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ $order->delivery_status }}</td>
                                         <td>{{ $order->circle_price }}</td>
@@ -100,6 +94,7 @@
                                                 value="{{ $order->id }}" data-toggle="modal"
                                                 data-target="#ready_to_deliverOrder_id">
                                                 <i class="fa fa-edit"></i></button>
+                                                <br>
                                             {{-- View button....................................................... --}}
                                             <a href="{{ url('view-single-ready-to-deliver-order/' . $order->id) }}">
                                                 <button class="btn btn-warning btn-sm btn-flat"
@@ -110,14 +105,15 @@
                                                 <button class="btn btn-danger btn-sm btn-flat delete"
                                                     value="{{ $order->id }}"><i class="fa fa-trash"></i>
                                                 </button></a>
+                                                <br>
                                             {{-- File button....................................................... --}}
                                             <div class="dropdown-menu">
-                                                <button class="btn btn-primary dropdown-toggle" type="button"
+                                                <button class="btn btn-info btn-sm btn-flat" type="button"
                                                     data-toggle="dropdown"><i class="fa fa-file"></i>
                                                     <span class="caret"></span></button>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                <button type="button" class="btn btn-info btn-sm btn-flat"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-file"></i>
                                                 </button>
@@ -126,16 +122,13 @@
                                                             Invoice</a></li>
                                                     <li><a href="" target="”_blank”" class="text-dark ml-2">Customer
                                                             Invoice</a></li>
-                                                    <li><a href="#" target="”_blank”" class="text-dark ml-2">Update
-                                                            Address</a></li>
-                                                    <li><a href="#" target="”_blank”" class="text-dark ml-2">Update
+                                                    <li><a href="{{url('edit-order-rtd/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update
                                                             Order</a></li>
                                                     <li><a href="#" target="”_blank”" class="text-dark ml-2">Add
                                                             Details</a></li>
                                                     <li><a href="#" target="”_blank”" class="text-dark ml-2">Add
                                                             Details 2</a></li>
-                                                    <li><a href="#" target="”_blank”" class="text-dark ml-2">Add
-                                                            Details 3</a></li>
+
                                                 </div>{{-- End of File button....................................................... --}}
                                             </div>
                                         </td>

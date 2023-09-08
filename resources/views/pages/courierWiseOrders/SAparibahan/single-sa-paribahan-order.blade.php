@@ -11,8 +11,8 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>
-            <a href="#">Home</a></li>
-            <a href="#">Order</a></li>
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item">Order</li>
             <li class="breadcrumb-item active">Order Details</li>
           </ol>
         </div>
@@ -26,8 +26,12 @@
       <div class="row">
         {{-- <div class="col-md-12"> --}}
           <div class="card">
-            <div class="card-header">
-              <p class="mt-2" id="result">Total Number of Items Selected = <p>
+            <div class="card-header bg-white">
+              @foreach($sa_paribahan_order as $order)
+              <button type="button" class="btn btn-success sa-paribahan-puchase-status-btn" data-toggle="modal" 
+                data-target="#SAparibahan-puchase-status-modal" value="{{$order->id}}">
+                <i class="fa fa-plus-circle"></i> Update Purchase Status</button>
+			         @endforeach 
             </div>
             <!-- /.card-header -->
 
@@ -54,49 +58,26 @@
                    <tr> 
                     <td><input name='checkme[]' id="order" type='checkbox' value=''></td>
                     <td>{{$order->date}}</td> 
-                    <td>TS079</td>
-                    <td>Polo Shirt for men TS079</td> 
-                    <td><img src="{{asset('images/p-8.jpeg')}}" alt="product_img"  style="width=120px; max-width:100px;"></td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->variation }}
-                        @endforeach 
-                    </td>
-
-                      <td>
-                      @foreach($order->orderDetails as $orderdetails)
-                      {{ $orderdetails->quantity }}
-                      @endforeach 
-                    </td>
-
-                        <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                           {{ $orderdetails->circle_price }}
-                        @endforeach 
-                      </td> 
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->selling_price }}
-                        @endforeach 
-                    
-                    </td>
+                    <td>{{$order->sku}}</td>
+                    <td>{{$order->product_name}}</td> 
+                    <td><img src="{{asset('images/'.$order->photos)}}" alt="product_img"  style="max-width:100px;"></td>
+                    <td>{{$order->variation}}</td>
+                    <td>{{$order->quantity}}</td>
+                    <td>{{$order->circle_price}}</td>
+                    <td>{{$order->selling_price}}</td>
                     <td>{{$order->delivery_status}}</td>
-                    <td>
-                        @foreach($order->orderDetails as $orderdetails)
-                        {{ $orderdetails->po_status}}
-                     @endforeach 
-                    </td>
-                    {{-- Toools td starts--}} 
-                    <td>
+                    <td>{{$order->po_status}}</td>
+                    <td>{{-- Toools td starts--}} 
 {{-- Update Button --}}
-<button class="btn btn-success btn-sm btn-block edit-btn-SAparibahanOrderDeatails" value="{{$order->id}}" data-toggle="modal" 
+<button class="btn btn-success btn-sm btn-flat edit-btn-SAparibahanOrderDeatails" value="{{$order->id}}" data-toggle="modal" 
 data-target="#sa_paribahan_order_details_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Update</button><br>
 {{-- Returned Button --}}
-<button class="btn btn-info btn-sm btn-block returned-sa-paribahan-order-btn" value="{{$order->id}}" data-toggle="modal" 
+<button class="btn btn-info btn-sm btn-flat returned-sa-paribahan-order-btn" value="{{$order->id}}" data-toggle="modal" 
 data-target="#sa_paribahan_order_returned_id"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Returned</button><br> 
 {{-- Purchased Button --}}
-<a href="{{url('purchased-sundarban-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-block"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
-<button class="btn btn-danger btn-sm btn-block delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="{{url('purchased-sundarban-order/'.$order->id)}}" target="”_blank”"><button class="btn btn-primary btn-flat"><i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Purchased</button></a> <br>
+<button class="btn btn-danger btn-sm btn-flat delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Delete</button>
+<a href="#" target="”_blank”"><button class="btn btn-info btn-sm btn-flat"><i class="fa fa-edit"></i> Processed</button></a>
                     </td>
                    </tr>                    
                 @endforeach 
@@ -104,8 +85,8 @@ data-target="#sa_paribahan_order_returned_id"><i class="fa fa-edit"></i>&nbsp;&n
               </table>
             @include('layouts.inc.CourierWiseOrders.SAparibahan.sa-paribahan-order-update-details-modal')  
             @include('layouts.inc.CourierWiseOrders.SAparibahan.sa-paribahan-order-returned-modal')
+            @include('layouts.inc.CourierWiseOrders.SAparibahan.update-purchase-status-modal')
             
-
             </div>
             <!-- /.card-body -->
           </div>

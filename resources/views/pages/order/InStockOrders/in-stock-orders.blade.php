@@ -5,13 +5,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>On Hold Orders List</h1>
+          <h1>In House Stock Orders List</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
             <i class="nav-icon fas fa-tachometer-alt mr-2"></i>Home</li>
-            <li class="breadcrumb-item active">On Hold Orders</li>
+            <li class="breadcrumb-item active">In House Stock Orders</li>
           </ol>
         </div>
       </div>
@@ -30,7 +30,7 @@
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered data_table ">
             <thead>
             <tr role="row">
             <th style="width:15%">Order Date</th>
@@ -57,7 +57,7 @@
                     <td>{{$order->id}}</td>
                     <td>{{$order->shop_name}}</td> 
                     <td>{{$order->customer_name}}</td> 
-                    <td>{{$order->address}}</td>
+                    <td>{{$order->shipping_address}}</td>
                     <td>{{$order->product_name}}</td> 
                     <td>{{$order->delivery_status}}</td>
                     <td><b class="text-danger font-weight-bold">High</b></td>
@@ -94,11 +94,10 @@ data-target="#in-stock-order-modal-id"><i class="fa fa-edit"></i></button><br>
                         <div class="dropdown-menu">
                           <li><a href="" target="”_blank”" class="text-dark ml-2">Seller Invoice</a></li>
                           <li><a href="" target="”_blank”" class="text-dark ml-2">Customer Invoice</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
+                          <li><a href="{{url('edit-address-in-stock/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Address</a></li>
+                          <li><a href="{{url('edit-order-in-stock/'.$order->id)}}" target="”_blank”" class="text-dark ml-2">Update Order</a></li>
                           <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details</a></li>
                           <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 2</a></li>
-                          <li><a href="#" target="”_blank”" class="text-dark ml-2">Add Details 3</a></li>
                        </div>
                       </div>{{-- End of file div--}}  
                       </td>{{-- Toools td End--}} 

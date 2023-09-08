@@ -29,13 +29,13 @@
                 <div class="py-2">
                     @foreach($selected_order as $order)
                     <button type="button" class="btn btn-success sops-ups-btn" data-toggle="modal" data-target="#purchase_status_modal_id" 
-                    value="{{ $order->id}}"><i class="fa fa-plus-circle"></i> Update Purchase Status</button>
+                    value="{{ $order->id}}"><i class="fa fa-plus-circle mr-1"></i> Update Purchase Status</button>
                     @endforeach 
                 </div>
             </div><!--End of card-header -->
             
             <div class="card-body scrollable">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered data_table ">
             <thead>
             <tr>
             <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>

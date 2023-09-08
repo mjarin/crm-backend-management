@@ -69,7 +69,7 @@
 
                             <div class="card-body scrollable">
                                 <div>
-                                    <h5> <span class="mr-2">Order List From :</span> {{ $from_date }} <span class="ml-2 mr-2">To: </span> {{ $to_date }}</h5>
+                                    <h5><span class="mr-2">Order List From :</span> {{ $from_date }} <span class="ml-2 mr-2">To: </span> {{ $to_date }}</h5>
                                     <br>
                                   </div>
                                 <table class="table table-bordered table-hover data_table " style="border:0!important">

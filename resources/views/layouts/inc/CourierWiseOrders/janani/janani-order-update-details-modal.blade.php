@@ -12,7 +12,7 @@
               @csrf
               @method('PUT') 
 
-              <input type="text" name="jananiOrderDetails_id" id="jananiOrderDetails_id" >
+              <input type="hidden" name="jananiOrderDetails_id" id="jananiOrderDetails_id" >
                 <div class="form-group row"> 
                   <label for="advance_payment" class="col-sm-3 col-form-label">Circle Price (Unit)</label>
                   <div class="col-sm-9">

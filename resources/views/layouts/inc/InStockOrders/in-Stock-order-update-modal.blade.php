@@ -13,7 +13,7 @@
           <form id="form" class="form-horizontal" action="{{url('update-instock-order-details')}}" method="POST">
               @csrf
               @method('PUT')  
-            <input type="text" name="InStock_order_details_id" id="InStock_order_details_id" >
+            <input type="hidden" name="InStock_order_details_id" id="InStock_order_details_id" >
           
                 <div class="form-group row">
                   <label for="advance_payment" class="col-sm-3 col-form-label">Circle Price (Unit)</label>

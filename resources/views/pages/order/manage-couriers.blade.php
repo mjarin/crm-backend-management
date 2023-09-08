@@ -32,7 +32,7 @@
   @endif
         <div class="card">
             <div class="card-head bg-white ml-3 mt-3">
-                <button type="button" class="btnbtn-sm btn-flat add-new-btn" data-toggle="modal"
+                <button type="button" class="btn btn-sm btn-flat add-new-btn" data-toggle="modal"
                     data-target="#add_new_modal_id" style="background-color:steelblue;color:#fff;">
                     <i class="fa fa-plus"></i><span class="ml-2">Add New</span></button>
             </div>
@@ -51,15 +51,14 @@
                                 @foreach ($couriers as $courier)
                                     <tr>
                                         <td>{{ $courier->name }}</td>
-                                        <td><a href="{{url('delete-courier/'.$courier->id)}}"> 
-                                        <button class="btn btn-danger btn-sm btn-flat delete-couriar-btn" data-toggle="modal"
-                                        data-target="#delete_courier_modal_id">
-                                         <i class="fa fa-trash mr-2"></i>Delete</button></a></td>
+                                        <td>
+                                         <button type="button" class="btn btn-danger btn-sm btn-flat delete-couriar-btn" data-toggle="modal"
+                                        data-target="#delete_courier_modal_id" value="{{ $courier->id}}">
+                                       <i class="fa fa-trash mr-2"></i>Delete</button></td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
                         @include('layouts.inc.manageCourier.add-new-courier-modal')
                         @include('layouts.inc.manageCourier.confirm-delete-courier-modal')
 

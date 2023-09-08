@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Session; 
 use App\Models\Order;
 use App\Models\Courier;
+use App\Models\DeliveryMan;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,7 @@ class ManageOrderController extends Controller
         $orders=DB::table('orders as order')
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
         ->join('products as product', 'order_details.product_id', '=', 'product.id')
-        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+        ->join('shops as shop', 'order.seller_id', '=', 'shop.id')
         ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
         ->where('order.id', '=',$orderId)
         ->get(['order.id',
@@ -37,11 +37,11 @@ class ManageOrderController extends Controller
         'order.collected_price',
         'order.delivery_man',
         'order.delivery_date',
+        'order.shipping_address',
         'order.remarks',
         'order.updated_by',
         'order_details.circle_price',
         'shop.shop_name',
-        'address.address',
         'product.product_name',
         'supplier.supplier_name'
         ]);
@@ -58,7 +58,6 @@ class ManageOrderController extends Controller
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
         ->join('products as product', 'order_details.product_id', '=', 'product.id')
         ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
         ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
         ->where('order.id', '=',$orderId)
         ->get(['order.id',
@@ -69,11 +68,11 @@ class ManageOrderController extends Controller
         'order.collected_price',
         'order.delivery_man',
         'order.delivery_date',
+        'order.shipping_address',
         'order.remarks',
         'order.updated_by',
         'order_details.circle_price',
         'shop.shop_name',
-        'address.address',
         'product.product_name',
         'supplier.supplier_name'
         ]);
@@ -195,6 +194,76 @@ class ManageOrderController extends Controller
             $update_status->update();
             return redirect()->back()->with('status','Status has been Updated');
     }
+
+
+    public function editSelectedOrderAddress($id){
+        $order =Order::find($id);
+        return view('pages.order.manageOrders.update-address-selected-order',compact('order'));
+    }
+
+    public function updateSelectedOrderAddress(Request $request){
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order-> customer_name=$request->input('customer_name');
+        $order-> shipping_address=$request->input('customer_address');
+        $order-> customer_phone=$request->input('customer_phone');
+        $order-> order_note=$request->input('order_note');
+        $order-> customer_charge=$request->input('customer_charge');
+        $order->advance_payment=$request->input('advance_payment');
+        $order->update();
+        return redirect()->back()->with('success','Address Updated Successfully'); 
+    
+    }
+
+    public function editSelectedOrderStep2($id){
+        $delivery_man = DeliveryMan::all();
+        $order =Order::find($id);
+        return view('pages.order.manageOrders.update-manage-order-step2',compact('order','delivery_man'));
+    }
+
+    public function updateSelectedOrderStep2(Request $request){
+
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order->id=$request->input('order_id');
+        $order->collected_price=$request->input('collected_amount');
+        $order->remarks=$request->input('circle_remarks');
+        $order->delivery_charge = $request->input('total_delivery_charge');
+        $order->delivery_man=$request->input('delivery_man');
+        $order->delivery_date=$request->input('delivery_date');
+        $order->delivery_status=$request->input('delivery_status');
+        $order->payment_status =$request->input('payment_status');
+        $order->update();
+        return redirect()->back()->with('success','Order Updated Successfully'); 
+    
+    }
+
+    public function editCustomerInfo($id){
+        $couriers = Courier::all();
+        $order = Order::find($id);
+        return view('pages.order.manageOrders.update-customer-info',compact('order','couriers'));
+
+
+    }
+
+    public function updateCustomerInfo(Request $request){
+
+        $id =$request->input('order_id');
+        $order = Order::find($id);
+        $order->customer_name=$request->input('customer_name');
+        $order-> shipping_address=$request->input('customer_address');
+        $order-> customer_phone=$request->input('customer_phone');
+        $order-> order_note = $request->input('order_note');
+        $order->courier=$request->input('courier');
+        $order->delivery_charge = $request->input('circle_delivery_charge');
+        $order->customer_charge =$request->input('customer_delivery_charge');
+        $order->advance_payment =$request->input('advance_payment');
+        $order->update();
+        return redirect()->back()->with('success','Order Updated Successfully'); 
+    
+    }
+    
+
 
 
 

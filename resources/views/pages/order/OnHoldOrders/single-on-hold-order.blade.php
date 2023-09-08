@@ -38,24 +38,22 @@
 
             <div class="card-body scrollable">
               <div class="col-md-12">
-            <table class="table table-bordered table-hover data_table ">
+            <table class="table table-bordered data_table_onHold_single_view ">
               <thead>
                 <tr role="row">
-                  <th style="width:8%;">
-                    <input type="checkbox" onclick="checkAll(this)" /> SL.
-                  </th>
-                  <th style="width:8%;">Date</th>
-                  <th style="width:5%;">SKU</th>
-                  <th style="width:10%;">Product Name</th>
-                  <th style="width:10%;">Image</th>
-                  <th style="width:10%;">Variation</th>
-                  <th style="width:10%;">Quantity</th>
-                  <th style="width:10%;">Circle Price (Unit)</th>
-                  <th style="width:10%;"> Selling Price (Unit)</th>
-                  <th style="width:10%;">Status</th>
-                  <th style="width:10%;">PO Status</th>
-                  <th style="width:10%;">Tools</th>
-                </tr>
+                  <th class="" rowspan="1" colspan="1"><input type="checkbox" onclick="checkAll(this)"> SL.</th>
+                  <th class="" rowspan="1" colspan="1">Date</th>
+                  <th class="" rowspan="1" colspan="1">SKU</th>
+                  <th class="" rowspan="1" colspan="1">Product Name</th>
+                  <th class="" rowspan="1" colspan="1">Image</th>
+                  <th class="" rowspan="1" colspan="1">Variation</th>
+                  <th class="" rowspan="1" colspan="1">Quantity</th>
+                  <th class="" rowspan="1" colspan="1">Circle Price (Unit)</th>
+                  <th class="" rowspan="1" colspan="1">Selling Price (Unit)</th>
+                  <th class="" rowspan="1" colspan="1">Status</th>
+                  <th class="" rowspan="1" colspan="1">PO Status</th>
+                  <th class="" rowspan="1" colspan="1">Tools</th>
+                  </tr>
               </thead>
                 <tbody>
                    @foreach ($orders as $order)

@@ -19,8 +19,7 @@ class ProcessingOrdersController extends Controller
         $orders=DB::table('orders as order')
         ->join('order_details  as order_details', 'order_details.order_id', '=', 'order.id') 
         ->join('products as product', 'order_details.product_id', '=', 'product.id')
-        ->join('shops as shop', 'order.user_id', '=', 'shop.user_id')
-        ->join('addresses as address', 'order.user_id', '=', 'address.user_id')
+        ->join('shops as shop', 'order.seller_id', '=', 'shop.id')
         ->join('supplier as supplier', 'order_details.supplier_id', '=', 'supplier.id')
         ->where('order.delivery_status', '=','processing')
         ->get(['order.id',
@@ -35,7 +34,7 @@ class ProcessingOrdersController extends Controller
         'order_details.circle_price',
         'order_details.po_status',
         'shop.shop_name',
-        'address.address',
+        'order.shipping_address',
         'product.product_name',
         'supplier.supplier_name'
         ]);
@@ -139,16 +138,70 @@ public function updateProcessingOrderReturned(Request $request){
 
 }
 
+public function editPurchaseStatus($id){
+
+    $order_id = Order::find($id);
+    return response()->json(['status' => 200,'purchaseStatus' => $order_id]);  
+
+}
+
+public function updatePurchaseStatus(Request $request){
+
+    $id = $request->input('hidden_input_id');
+    $update_order = OrderDetails::where('order_id','=',$id)->where('delivery_status','=','processing')->first();
+    $update_order ->po_status = $request->input('status');
+    $update_order->update();
+    return redirect()->back()->with('status','Updated Successfully');
+
+  }
+
+public function editAddressProcessingOrderStep2($id){
+
+    $order =Order::find($id);
+    return view('pages.order.ProcessingOrders.update-address-processing-order-step2',compact('order'));
+
+}
 
 
+public function updateAddress(Request $request){
+    $id =$request->input('order_id');
+    $order = Order::find($id);
+    $order-> customer_name=$request->input('customer_name');
+    $order-> shipping_address=$request->input('customer_address');
+    $order-> customer_phone=$request->input('customer_phone');
+    $order-> order_note=$request->input('order_note');
+    $order-> customer_charge=$request->input('customer_charge');
+    $order->advance_payment=$request->input('advance_payment');
+    $order->update();
+    return redirect()->back()->with('success','Address Updated Successfully'); 
 
+}
 
+public function editProcessingOrderStep2($id){
 
+    $delivery_man = Courier::all();
+    $order =Order::find($id);
+    return view('pages.order.ProcessingOrders.update-processing-order-step2',compact('order','delivery_man'));
 
+}
 
+public function updateProcessingOrderStep2(Request $request){
 
+    $id =$request->input('order_id');
+    $order = Order::find($id);
+    $order->id=$request->input('order_id');
+    $order->collected_price=$request->input('collected_amount');
+    $order->remarks=$request->input('circle_remarks');
+    // $order->customer_charge = $request->input('customer_delivery_charge');
+    $order->customer_charge = $request->input('total_delivery_charge');
+    $order->delivery_man=$request->input('delivery_man');
+    $order->delivery_date=$request->input('delivery_date');
+    $order->delivery_status=$request->input('delivery_status');
+    $order->payment_status =$request->input('payment_status');
+    $order->update();
+    return redirect()->back()->with('success','Order Updated Successfully');
 
-
+}
 
 
 

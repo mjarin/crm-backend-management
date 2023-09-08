@@ -30,27 +30,27 @@
               @foreach($orders as $order)
               <button type="button" class="btn btn-success inTransitOrder-update-status" data-toggle="modal" 
               value="{{$order->id}}"data-target="#inTransitOrder-update-status-modal">
-              <i class="fa fa-plus-circle"></i>Update Purchase Status</button>
+              <i class="fa fa-plus-circle mr-1"></i>Update Purchase Status</button>
               @endforeach 
             </div>
             <!-- /.card-header -->
 
             <div class="card-body scrollable">
-            <table id="in-transit-single-view-dataTable" class="table table-bordered table-hover data_table ">
+            <table id="in-transit-single-view-dataTable" class="table table-bordered data_table_inTransit ">
             <thead>
-            <tr>
-            <th><input type="checkbox"  onclick="checkAll(this)"> SL.</th>
-            <th style="width:10%">Date</th>
-            <th style="width:5%">SKU</th>
-                 <th style="width:20%">Product Name</th>
-                 <th style="width:8%">Image</th>
-                 <th style="width:10%">Variation</th>
-                 <th style="width:10%">Quantity</th>
-                 <th style="width:10%">Circle Price (Unit)</th>
-                 <th style="width:5%">Selling Price (Unit)</th>
-                 <th style="width:5%">Status</th>
-                 <th style="width:8%">PO Status</th>
-                 <th style="width:10%">Tools</th>
+              <tr role="row">
+                <th class="" rowspan="1" colspan="1"><input type="checkbox" onclick="checkAll(this)"> SL.</th>
+                <th class="" rowspan="1" colspan="1">Date</th>
+                <th class="" rowspan="1" colspan="1">SKU</th>
+                <th class="" rowspan="1" colspan="1">Product Name</th>
+                <th class="" rowspan="1" colspan="1">Image</th>
+                <th class="" rowspan="1" colspan="1">Variation</th>
+                <th class="" rowspan="1" colspan="1">Quantity</th>
+                <th class="" rowspan="1" colspan="1">Circle Price (Unit)</th>
+                <th class="" rowspan="1" colspan="1">Selling Price (Unit)</th>
+                <th class="" rowspan="1" colspan="1">Status</th>
+                <th class="" rowspan="1" colspan="1">PO Status</th>
+                <th class="" rowspan="1" colspan="1">Tools</th>
                 </tr>
                 </thead>
                 <tbody>

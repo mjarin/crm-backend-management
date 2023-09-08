@@ -1,6 +1,6 @@
 
 <div class="modal fade" id="updt-pending-order-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 800px!important;" role="document">
+  <div class="modal-dialog" style="max-width: 700px!important;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title font-weight-bold"></h5> 
@@ -32,7 +32,8 @@
       <div class="form-group row">
         <label for="" class="col-sm-4 col-form-label"><b>Quantity</b></label>
         <div class="col-sm-8">
-          <input type="number" class="form-control" id="pending_quantity" name="pendingt_quantity">
+          <input type="number" class="form-control"  id="pending_quantity" name="pendingt_quantity">
+          {{-- <input id="coins" type="number" name="coins" value="1" max="999" min="1"> --}}
         </div>
       </div>
   
